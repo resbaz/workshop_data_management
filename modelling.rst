@@ -18,7 +18,7 @@ Email - EmailField
 
 ''' Metadata '''
 
-.. note::
+.. notes::
     ChoiceFields are described at the bottom of this document
 
 Gender Identity - ChoiceField
