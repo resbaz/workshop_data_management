@@ -8,9 +8,12 @@ Top level Objects
 Class Person
 ------------
 
-''' ID Fields '''
+'''ID Fields'''
+
 Name  - CharField
+
 Other - CharField
+
 Email - EmailField
 
 ''' Metadata '''
@@ -19,7 +22,9 @@ Email - EmailField
     ChoiceFields are described at the bottom of this document
 
 Gender Identity - ChoiceField
+
 DOB - DateField
+
 Dietary Requirements - ChoiceField
 
 
