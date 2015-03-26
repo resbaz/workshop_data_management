@@ -46,7 +46,7 @@ with some broader ideas.
 
  #. What are we actually collecting?
  #. What are we trying to measure?
- #. How can I minimise my data entry? (which is actually a lazy or human way of 
+ #. How can I minimise my data entry? (which is a lazy, or human, way of 
     referring to the computer science theory of database normalization and 
     "Normal Forms")
 
@@ -71,7 +71,7 @@ and we had lots of information, but no easy way to navigate, analyse or
 summarise it.
 
 So we decided to make a database with Django, given what we learned in the
-beginneers tutorial.
+beginners tutorial.
 
 --------------
 Data Modelling
@@ -100,20 +100,39 @@ And we will want a Workshop for them to attend
         Date - DateField
 
 
-How will these two object interact? Interesting question. Let's start by just
-subclassing Person and see how far we get. Relational fields in Django are 
-bi-directional, so you can put them in either model. It will usually be 
-apparent which model to put them in. Do we want a Workshop with students or
-students with a list of workshops? And what kind of relationship?
+How will these two object interact? Interesting question. 
 
-In databases, there are three types of relationships:
+First, there are three types of people that go to a workshop: students, 
+instructors and helpers. Each of those groups need to be represented 
+differently in the DB, because we will be gathering different information
+on each of them.
 
-* One to One: every one Person has one Genome code, every one Genome code 
-represents one person. This is a very rare case that we use infrequently.
-* One to Many: Any one Manufacturer has many cars, and one car has one
-Manufacturer.
-* Many to Many: Any one Piza can have many toppings. Any one topping can be on
-many Pizzas.
+There are a number of ways to approach this. 
+
+ #. We can subclass Person three ways and relate them to the workshop
+ #. We can just related the Person to the workshop three ways
+ #. ?
+
+
+I've already use the word relate twice, and SQL is a "relational database 
+language" so lets take a quick look at what that means and how it works in 
+Django.
+
+In SQL databases, there are three types of relationships:
+
+ * One to One: every one Person has one Genome code, every one Genome code 
+   represents one person. This is a very rare case that we use infrequently.
+ * One to Many: Any one Manufacturer has many cars, any one car has one
+   Manufacturer.
+ * Many to Many: Any one Piza can have many toppings. Any one topping can be on
+   many Pizzas.
+
+
+Relational fields in Django are bi-directional, so you can put them in 
+either model. It will usually be apparent which model to put them in. Do we 
+want a Workshop with students or students with a list of workshops? And what 
+kind of relationship?
+
 
 We know that a Workship will have (hopefully) more than one student, 
 and that (hopefully) any student will go to more than one Workshop, so
