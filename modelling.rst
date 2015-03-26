@@ -52,10 +52,10 @@ Class Workshop
     Catering - BooleanField
 
 .. note::
-    Instructors - Many-to-Many-Field
-    Helpers - Many-to-ManyField
-    Students - Many-to-ManyField
-    Originally we had these fields on the Workshop. But then we started to think about some
+    | Instructors - Many-to-Many-Field
+    | Helpers - Many-to-ManyField
+    | Students - Many-to-ManyField
+    | Originally we had these fields on the Workshop. But then we started to think about some
     Instructors or Helpers in one subject could be students in another and vice versa. So we
     have taken these out and created an intermediatory class for each.
     See here for more on intermediatory classes
