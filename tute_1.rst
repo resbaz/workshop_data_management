@@ -12,28 +12,43 @@ In the easy tutorial we really focused on getting up to speed with Django,
 learning some easy concepts and language, and saw how easy it was to develop
 a database with a web based front end.
 
-One thing that we conveniently skirted around was data modelling and planning.
+One thing that we conveniently skirted around was data modelling and planning. 
+I say convenient because these are two things that seem easy but are quite
+hard and don't have definitive solutions.
 
 In this tutorial we are going to look at those two things up front, because 
 they help inform what we will be learning and make it easier to understand 
-why we would use those special functions. It will also become clearer that
-this type of data is much better suited to a database than a (multipage) 
-spreadsheet.
+why we would use some of the special functions available within Django. 
+
+It will also become clearer that the type of data we are looking at in this 
+tutorial is much better suited to a database than a (multipage) spreadsheet.
 
 ------------------
 What we will learn
 ------------------
 
-First we are going to do some mental work thinking about how to structure 
-data. We will look at the use case of keeping track of students that attend
-workshops. In that process we will see how there are many ways to solve this
-problem, and that none of them are more correct than the other. However, there
-are some ways that are more suited to the concepts and tools that are available
-to us in Django.
+Our use case will be how to keep track of students that attend workshops. First
+we are going to do some mental work thinking about how to structure data. In 
+that process we will see how there are many ways to solve this problem, and that
+none of them are more correct than the other. However, there are some ways that
+are more suited to the concepts and tools that are available to us in Django.
 
 After thinking about how we will structure our data will start using those more
 advanced tools and concepts to build a functioning web app that is suitably 
 complex.
+
+Traditionally, when we were thinking about the data we are going to collect, 
+our framework has been the columns and rows of a spreadsheet, sometimes the 
+extra pages. Usually a header row.
+
+While this is still a good framework we are going to develop on top of that
+with some broader ideas.
+
+# What are we actually collecting?
+# What are we trying to measure?
+# How can I minimise my data entry? (which is actually a lazy or human way of 
+referring to the computer science theory of database normalisation and "Normal
+Forms")
 
 Workshop Project
 ----------------
