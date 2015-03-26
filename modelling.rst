@@ -15,6 +15,7 @@ Class Person
     Email - EmailField
 
 ''' Metadata '''
+
 .. note::
     ChoiceFields are described at the bottom of this document
 
