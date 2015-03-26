@@ -114,7 +114,7 @@ There are a number of ways to approach this.
  #. ?
 
 
-I've already use the word relate twice, and SQL is a "relational database 
+I've already use the word *relate* twice, and SQL is a "relational database 
 language" so lets take a quick look at what that means and how it works in 
 Django.
 
