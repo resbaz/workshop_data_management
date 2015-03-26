@@ -8,44 +8,44 @@ Top level Objects
 Class Person
 ------------
 
-'''ID Fields'''
+'''ID Fields''' ::
 
-Name  - CharField
-
-Other - CharField
-
-Email - EmailField
+    Name  - CharField
+    Other - CharField
+    Email - EmailField
 
 ''' Metadata '''
-
-.. notes::
+.. note::
     ChoiceFields are described at the bottom of this document
 
-Gender Identity - ChoiceField
-
-DOB - DateField
-
-Dietary Requirements - ChoiceField
+::
+    
+    Gender Identity - ChoiceField
+    DOB - DateField
+    Dietary Requirements - ChoiceField
 
 
 Class Organisation
 ------------------
+::
 
-Title - CharField (choices = ORG_CHOICES)
-Location - ChoiceField (choices = dependant choices)
-Department - ChoiceField(choices = dependat choices, DEPT_CHOICES for UoM)
+    Title - CharField (choices = ORG_CHOICES)
+    Location - ChoiceField (choices = dependant choices)
+    Department - ChoiceField(choices = dependat choices, DEPT_CHOICES for UoM)
 
 
 Class Workshop
 --------------
 
-Subject (title) - CharField
-Description (body text) - CharField
+::
 
-Date Held - DateField
-Teaching Hours - IntegerField
+    Subject (title) - CharField
+    Description (body text) - CharField
 
-Catering - BooleanField
+    Date Held - DateField
+    Teaching Hours - IntegerField
+
+    Catering - BooleanField
 
 .. note::
     '''
@@ -61,11 +61,12 @@ Catering - BooleanField
 
 Class Instructors
 -----------------
-''' Intermediate class '''
-Workshop - FK(Workshop)
-Person - FK(Person)
-Organisation - FK(Organisation)
-Career Stage - ChoiceField
+''' Intermediate class ''' ::
+
+    Workshop - FK(Workshop
+    Person - FK(Person)
+    Organisation - FK(Organisation)
+    Career Stage - ChoiceField
 
 .. note::
     '''
@@ -77,30 +78,33 @@ Career Stage - ChoiceField
 
 Class Helpers
 -------------
-''' Intermediate class that links helpers with the workshops they helped with '''
-Workshop - FK(Workshop)
-Person - FK(Person)
-Organisation - FK(Organisation)
-Career Stage - ChoiceField
+''' Intermediate class that links helpers with the workshops they helped with ''' ::
+
+    Workshop - FK(Workshop)
+    Person - FK(Person)
+    Organisation - FK(Organisation)
+    Career Stage - ChoiceField
 
 Class Students
 --------------
-''' Intermediate class '''
-Workshop - FK(Workshop)
-Person - FK(Person)
-Grade - CharField
-Attendance - BooleanField
-Organisation - FK(Organisation)
-Career Stage - ChoiceField
+''' Intermediate class ''' ::
+
+    Workshop - FK(Workshop)
+    Person - FK(Person)
+    Grade - CharField
+    Attendance - BooleanField
+    Organisation - FK(Organisation)
+    Career Stage - ChoiceField
 
 Class Applicants
 ----------------
-''' Intermediate class '''
-Workshop - FK(Workshop)
-Person - FK(Person)
-ApplicationDate - DateField
-Organisation - FK(Organisation)
-Career Stage - ChoiceField
+''' Intermediate class ''' ::
+
+    Workshop - FK(Workshop)
+    Person - FK(Person)
+    ApplicationDate - DateField
+    Organisation - FK(Organisation)
+    Career Stage - ChoiceField
 
 Choice Fields for restricted data entry
 =======================================
