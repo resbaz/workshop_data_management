@@ -44,9 +44,9 @@ extra pages. Usually a header row.
 While this is still a good framework we are going to develop on top of that
 with some broader ideas.
 
-# What are we actually collecting?
-# What are we trying to measure?
-# How can I minimise my data entry? (which is actually a lazy or human way of 
+ # What are we actually collecting?
+ # What are we trying to measure?
+ # How can I minimise my data entry? (which is actually a lazy or human way of 
 referring to the computer science theory of database normalisation and "Normal
 Forms")
 
