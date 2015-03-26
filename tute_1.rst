@@ -47,8 +47,19 @@ with some broader ideas.
  #. What are we actually collecting?
  #. What are we trying to measure?
  #. How can I minimise my data entry? (which is actually a lazy or human way of 
-referring to the computer science theory of database normalisation and "Normal
-Forms")
+    referring to the computer science theory of database normalization and 
+    "Normal Forms")
+
+As we walk through this example you will see how these three ideas inform what
+structure we give our data. This tutorial can seem a little rambling - when 
+thinking about data modelling it is worth investigating dead ends and backing 
+out again to change tack. 
+
+I reiterate: there is rarely a "correct" answer to how your data should be
+modelled, but there are ways that will make it easier to use, easier to enter 
+and easier to think about. Sometimes that can lead to surprising results. 
+
+
 
 Workshop Project
 ----------------
