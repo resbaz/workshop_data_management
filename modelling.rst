@@ -1,23 +1,30 @@
 -------------------------------
 Models needed with descriptions
 -------------------------------
-
+=================
 Top level Objects
 =================
 
 Class Person
 ------------
 
-'''ID Fields''' ::
+ID Fields
+=========
+::
 
     Name  - CharField
     Other - CharField
     Email - EmailField
 
-''' Metadata '''
+Metadata
+========
+
+.. ..
 
 .. note::
     ChoiceFields are described at the bottom of this document
+
+..
 
 ::
     
