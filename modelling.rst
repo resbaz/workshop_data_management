@@ -119,6 +119,7 @@ Choice Fields for restricted data entry
     )
 
 ::
+
     ORG_CHOICES = (
     (1,'Australian Antarctic Division'),
     (2,'Australian Astronomical Observatory'),
