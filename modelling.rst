@@ -19,12 +19,8 @@ ID Fields
 Metadata
 ========
 
-.. 
-
 .. note::
     ChoiceFields are described at the bottom of this document
-
-..
 
 ::
     
@@ -118,6 +114,7 @@ Choice Fields for restricted data entry
 =======================================
 
 ::
+    
     CAREER_CHOICES = (
 
     )
