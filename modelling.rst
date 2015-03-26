@@ -19,7 +19,7 @@ ID Fields
 Metadata
 ========
 
-.. ..
+.. 
 
 .. note::
     ChoiceFields are described at the bottom of this document
@@ -56,7 +56,6 @@ Class Workshop
     Catering - BooleanField
 
 .. note::
-    '''
     Instructors - Many-to-Many-Field
     Helpers - Many-to-ManyField
     Students - Many-to-ManyField
@@ -65,11 +64,11 @@ Class Workshop
     have taken these out and created an intermediatory class for each.
     See here for more on intermediatory classes
     https://docs.djangoproject.com/en/1.7/topics/db/models/#extra-fields-on-many-to-many-relationships
-    '''
 
 Class Instructors
 -----------------
-''' Intermediate class ''' ::
+
+Intermediate class with instructor/class details :: 
 
     Workshop - FK(Workshop
     Person - FK(Person)
@@ -77,16 +76,15 @@ Class Instructors
     Career Stage - ChoiceField
 
 .. note::
-    '''
     Originally we had the Org on the Person model, but realised that would
     skew our data because a person may belong to a number of orgs and we
     are looking to distinguish *per workshop*. Hence moving the org data
     to these intermediate classes. 
-    '''
 
 Class Helpers
 -------------
-''' Intermediate class that links helpers with the workshops they helped with ''' ::
+
+Intermediate class that links helpers with the workshops they helped with ::
 
     Workshop - FK(Workshop)
     Person - FK(Person)
@@ -95,8 +93,9 @@ Class Helpers
 
 Class Students
 --------------
-''' Intermediate class ''' ::
 
+Intermediate class ::
+  
     Workshop - FK(Workshop)
     Person - FK(Person)
     Grade - CharField
@@ -106,7 +105,8 @@ Class Students
 
 Class Applicants
 ----------------
-''' Intermediate class ''' ::
+
+Intermediate class ::
 
     Workshop - FK(Workshop)
     Person - FK(Person)
