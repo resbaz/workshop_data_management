@@ -26,7 +26,7 @@ Metadata
     
     Gender Identity - ChoiceField
     DOB - DateField
-    Dietary Requirements - ChoiceField
+
 
 
 Class Organisation
@@ -68,6 +68,7 @@ Intermediate class with instructor/class details ::
     Person - FK(Person)
     Organisation - FK(Organisation)
     Career Stage - ChoiceField
+    Dietary Requirements - ChoiceField
 
 .. note::
     Originally we had the Org on the Person model, but realised that would
@@ -84,6 +85,7 @@ Intermediate class that links helpers with the workshops they helped with ::
     Person - FK(Person)
     Organisation - FK(Organisation)
     Career Stage - ChoiceField
+    Dietary Requirements - ChoiceField
 
 Class Students
 --------------
@@ -96,6 +98,7 @@ Intermediate class ::
     Attendance - BooleanField
     Organisation - FK(Organisation)
     Career Stage - ChoiceField
+    Dietary Requirements - ChoiceField
 
 Class Applicants
 ----------------
@@ -107,6 +110,7 @@ Intermediate class ::
     ApplicationDate - DateField
     Organisation - FK(Organisation)
     Career Stage - ChoiceField
+    Dietary Requirements - ChoiceField
 
 Choice Fields for restricted data entry
 =======================================
