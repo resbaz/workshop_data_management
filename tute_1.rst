@@ -91,7 +91,7 @@ basic information that we want on them.
     
     class Person
         Name - CharField
-        Other - CharField
+        Other - CharField # for name in parent's language
         Email - EmailField
 
 
