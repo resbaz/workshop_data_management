@@ -123,12 +123,12 @@ Django.
 
 In SQL databases, there are three types of relationships:
 
- * Many to Many: Any one Piza can have many toppings. Any one topping can be on
+ * Many to Many: Any one Pizza can have many Toppings. Any one Topping can be on
    many Pizzas.
- * One to Many: Any one Manufacturer has many cars, any one car has one
+ * One to Many: Any one Manufacturer has many Cars, any one Car has one
    Manufacturer.
- * One to One: every one Person has one Genome code, every one Genome code 
-   represents one person. This is a very rare case that we use infrequently.
+ * One to One: every one Person has one Genome Code, every one Genome Code 
+   represents one Person. This is a very rare case that we use infrequently.
 
 In Django these are represented as follows:
  
@@ -138,11 +138,11 @@ In Django these are represented as follows:
 
 Relational fields in Django are bi-directional, which means you can put them 
 in either model. It will usually be apparent which model to put them in. Do we 
-want a Workshop with students or students with a list of workshops? And what 
+want a Workshop with Students or Students with a list of Workshops? And what 
 type of relationship should we choose?
 
-We know that a Workshop will have (hopefully) more than one student, 
-and that (hopefully) any student will go to more than one Workshop, so
+We know that a Workshop will have (hopefully) more than one Student, 
+and that (hopefully) any Student will go to more than one Workshop, so
 we will use a ManyToManyField as the relationship, and we will put it on the 
 Workshop model.
 
@@ -179,7 +179,7 @@ or::
 
 
 I didn't even finish typing before I thought - what about Ada Lovelace - she 
-is a student in one workshop and an instructor in another. Do I really want 
+is a Student in one Workshop and an Instructor in another. Do I really want 
 to have her in the DB twice, once each as a Student object and an Instructor
 object? I could - there are no correct answers - but it does seem counter 
 intiutive and feels like it would be harder to find full info about any 
@@ -204,8 +204,8 @@ student *and* an instructor in the same workshop. So our options are now to
 put in some validation code (ergh, boring) or re think our models.
 
 While we are rethinking our models and looking over the data we have already 
-collected, we realise we need an Organisational affiliation link per person 
-and we want to record each students Career stage so we can report what type of 
+collected, we realise we need an Organisational affiliation link per Person 
+and we want to record each student's Career Stage so we can report what type of 
 researchers are coming to our workshops.
 
 This is easier to think about than the Workshop problem because it is distinct
@@ -226,9 +226,9 @@ Let's give each Person an Organisation affliation, that's relatively easy.
         Email - EmailField
         Org - ...
 
-Ok. Damn. Thinking about the relationship between a person and an organisation
+Ok. Damn. Thinking about the relationship between a Person and an Organisation
 reminds us that it needs to be ManyToMany - any one Org has many People, 
-and any one person has (potentially) many Orgs - people move campuses, people
+and any one Person has (potentially) many Orgs - people move campuses, people
 change departments, people change universities and employers. So now we have a 
 new problem - which org is a Person at right now? Do we need to add a date 
 field...ok this is getting messy.
@@ -248,10 +248,10 @@ The reason we want to know the Organisation of each Person is so that we can
 report on **what type of students** are coming to our Workshops. 
 
 Now that we think about it, Organisation is a data point that is related to 
-the person-workshop relationship, not the person individually. In fact, we
-are also interested in the Career Stage of each person, and this falls into 
+the Person-Workshop relationship, not the Person individually. In fact, we
+are also interested in the Career Stage of each Person, and this falls into 
 exactly the same basket. That will change over time **but we only want it in
-regards to our workshop, not to the person in particular**.
+regards to our Workshop, not to the Person in particular**.
 
 That makes things more interesting. Maybe this can solve both our problems -
 how to relate the Person, the Workshop and how to record some extra data 
@@ -284,7 +284,7 @@ to address this very thing. Let's look at how it works:
     
 It feels right just typing it out. We may find later that it is incorrect but 
 for the moment it looks good. We can put a small validator on the Workshop 
-model to check that a Person only comes in one role. 
+model to check that a Person only performs one role per Workshop. 
 
 Now that we are thinking about our data a little differently - we are 
 collecting the Org data in a non obvious place, for instance, and we now have
@@ -315,11 +315,12 @@ Why do we keep the Organisation and Career Stage information in the Student
 model. That's definitely a redundancy.
 
 But what about the Student that is a drop in replacement? Or has a situational
-change during the intervening period? It's worth keeping for those reasons. 
-And, since we will be converting Applicants into Students automatically 
-(seems like the best way to do it) we can just copy the data across, we wont 
-have that much redundant labour (golden rule: redundant labour costs more than 
-redundant disk space, which costs more than clean efficient models).
+change during the period between Application and the Workshop? It's worth 
+keeping for those reasons. And, since we will be converting Applicants into 
+Students automatically (seems like the best way to do it) we can just copy the 
+data across, we won't have that much redundant labour (golden rule: redundant 
+labour costs more than redundant disk space, which costs more than clean 
+efficient models).
 
 That's a solid base. Going back to our spreadsheet, we look at what else we 
 need to collect and measure.
@@ -327,7 +328,7 @@ need to collect and measure.
  * We want to measure gender distributions. 
  * We want to measure age distributions
  * Workshops sometimes have food. We need to know about dietary requirements
- * We want Workshops to be a little richer
+ * We want Workshops to have a little more info
  * We want to reduce typing, but also **increase** data accuracy (aka "reduce
    inaccurate data entry")
 
@@ -336,7 +337,10 @@ data models. As noted before, these may change as we go on, but we have to
 start somewhere.
 
 In order to address the final point above, we will start to use Django's 
-**choice field**. The other points will be commented in the psuedo code
+**choice field**. These will appear as a drop down list rather than a 
+blank field.
+ 
+The other points will be commented in the psuedo code
 
 ::
 
@@ -350,7 +354,7 @@ In order to address the final point above, we will start to use Django's
         Name - CharField
         Other - CharField
         Email - EmailField
-        DOB - DateField
+        DOB - DateField # age can be computed by (Workshop date - DOB)
         Gender Identity - CharField (choice=GENDER_CHOICES, default='o')
         # note that we think that an empty field here, so people can enter
         # what they personally identify as is best practice, but we are 
@@ -364,7 +368,7 @@ In order to address the final point above, we will start to use Django's
 
     class Workshop
         Subject (title) - CharField
-        Description (body text) - CharField #title might not be enough
+        Description (body text) - CharField # title might not be enough
         Date Held - DateField
         Teaching Hours - IntegerField
         Catering - BooleanField # do we provide lunch or a tea/coffe break
@@ -375,7 +379,7 @@ In order to address the final point above, we will start to use Django's
         Organisation - FK(Organisation)
         Career Stage - ChoiceField
         Dietary Requirements - ChoiceField 
-        #we have moved Diet to the workshop as people's dietary req's may
+        # we have moved Diet to the workshop as people's dietary req's may
         # change over time. We only need for this workshop.
 
     class Helpers
