@@ -1,10 +1,11 @@
 # workshop-data-management
 
-This project is a combination of practical - creating a small web based 
-database application for the management of the Research Platforms 
-workshops, to provide some broad stroke analysis of those workshops,
-and also to be a read world tutorial for Django, one that is harder than
-your regular tutorial.
+This project is a combination of practical and educational - we are creating a
+small web based database application for the management of the Research 
+Platforms workshops, to provide some broad stroke analysis of those workshops,
+and also to be a read world tutorial for an intro to data modelling and a more
+difficult Django, one that is harder than most regular tutorials, and our 
+introduction tutorial.
 
 
 
