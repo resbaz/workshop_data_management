@@ -27,6 +27,8 @@ tutorial is much better suited to a database than a (multipage) spreadsheet.
 What we will learn
 ------------------
 
+http://www.chris-granger.com/2015/01/26/coding-is-not-the-new-literacy/
+
 Our use case will be how to keep track of students that attend workshops. We
 want to collect data for smooth running on the day (eg, Dietary requirements),
 but also for later analysis (Career Stage, Organisation affiliation, Age, 
