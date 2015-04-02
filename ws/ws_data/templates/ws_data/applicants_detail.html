@@ -1,0 +1,14 @@
+{% extends "ws_data/applicants_base.html" %}
+
+{% block title %}
+    {{ applicants }}
+{% endblock %}
+
+{% block content %}
+    <h1><a href={% url "applicants_list" %}>Applicants</a></h1>
+    <h2>{{ applicants }} | <a href={% url "applicants_update" applicants.pk %}>Update</a> | 
+    <form style="display:inline;" action={% url "applicants_delete" applicants.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ applicants }}?')">{% csrf_token %}
+    <input type="submit" value="Delete" />
+    </form>
+    </h2>
+{% endblock %}

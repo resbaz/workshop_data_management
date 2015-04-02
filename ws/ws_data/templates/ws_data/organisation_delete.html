@@ -1,0 +1,17 @@
+{% extends "ws_data/organisation_base.html" %}
+
+{% block title %}
+    Delete {{ organisation }}
+{% endblock %}
+
+{% block content %}
+<h1>Delete {{ organisation }}</h1>
+
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete {{ organisation }}?</p>
+    <input type="submit" value="Confirm" />
+</form>
+
+<a href={% url "organisation_detail" organisation.pk %}>Cancel</a>
+
+{% endblock %}

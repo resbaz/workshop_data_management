@@ -1,0 +1,16 @@
+{% extends "ws_data/person_base.html" %}
+
+{% block title %}
+    Create Person
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "person_list" %}>Person</a></h1>
+<h2>Create Person</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create" />
+</form>
+<a href={% url "person_list" %}>Cancel</a>
+{% endblock %}

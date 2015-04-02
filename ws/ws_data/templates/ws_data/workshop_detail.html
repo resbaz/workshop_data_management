@@ -1,0 +1,14 @@
+{% extends "ws_data/workshop_base.html" %}
+
+{% block title %}
+    {{ workshop }}
+{% endblock %}
+
+{% block content %}
+    <h1><a href={% url "workshop_list" %}>Workshop</a></h1>
+    <h2>{{ workshop }} | <a href={% url "workshop_update" workshop.pk %}>Update</a> | 
+    <form style="display:inline;" action={% url "workshop_delete" workshop.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ workshop }}?')">{% csrf_token %}
+    <input type="submit" value="Delete" />
+    </form>
+    </h2>
+{% endblock %}

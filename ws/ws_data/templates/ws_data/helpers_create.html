@@ -1,0 +1,16 @@
+{% extends "ws_data/helpers_base.html" %}
+
+{% block title %}
+    Create Helpers
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "helpers_list" %}>Helpers</a></h1>
+<h2>Create Helpers</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create" />
+</form>
+<a href={% url "helpers_list" %}>Cancel</a>
+{% endblock %}

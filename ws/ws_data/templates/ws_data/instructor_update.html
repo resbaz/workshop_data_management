@@ -1,0 +1,19 @@
+{% extends "ws_data/instructor_base.html" %}
+
+{% block title %}
+    Update {{ instructor }}
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "instructor_list" %}>Instructor</a></h1>
+<h2>Update {{ instructor }}</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update" />
+</form>
+<a href={% url "instructor_detail" instructor.pk %}>Cancel</a>
+<form style="display:inline;" action={% url "instructor_delete" instructor.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ instructor }}?')">{% csrf_token %}
+    <input type="submit" value="Delete" />
+</form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "ws_data/organisation_base.html" %}
+
+{% block title %}
+    Create Organisation
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "organisation_list" %}>Organisation</a></h1>
+<h2>Create Organisation</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create" />
+</form>
+<a href={% url "organisation_list" %}>Cancel</a>
+{% endblock %}

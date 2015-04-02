@@ -1,0 +1,16 @@
+{% extends "ws_data/instructor_base.html" %}
+
+{% block title %}
+    Create Instructor
+{% endblock %}
+
+{% block content %}
+<h1><a href={% url "instructor_list" %}>Instructor</a></h1>
+<h2>Create Instructor</h2>
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create" />
+</form>
+<a href={% url "instructor_list" %}>Cancel</a>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "ws_data/helpers_base.html" %}
+
+{% block title %}
+    Delete {{ helpers }}
+{% endblock %}
+
+{% block content %}
+<h1>Delete {{ helpers }}</h1>
+
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete {{ helpers }}?</p>
+    <input type="submit" value="Confirm" />
+</form>
+
+<a href={% url "helpers_detail" helpers.pk %}>Cancel</a>
+
+{% endblock %}

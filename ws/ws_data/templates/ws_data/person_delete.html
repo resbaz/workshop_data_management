@@ -1,0 +1,17 @@
+{% extends "ws_data/person_base.html" %}
+
+{% block title %}
+    Delete {{ person }}
+{% endblock %}
+
+{% block content %}
+<h1>Delete {{ person }}</h1>
+
+<form action="" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete {{ person }}?</p>
+    <input type="submit" value="Confirm" />
+</form>
+
+<a href={% url "person_detail" person.pk %}>Cancel</a>
+
+{% endblock %}

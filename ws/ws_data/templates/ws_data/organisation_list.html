@@ -1,0 +1,19 @@
+{% extends "ws_data/organisation_base.html" %}
+
+{% block title %}
+    Organisations
+{% endblock %}
+
+{% block content %}
+    <h1>Organisations</h1>
+    <h2><a href={% url "organisation_create" %}>Create new Organisation</h2>
+    <ul>
+    {% for organisation in organisation_list %}
+        <li><a href={% url "organisation_detail" organisation.pk %}>{{ organisation }}</a> | <a href={% url "organisation_update" organisation.pk %}>Update</a> | <form style="display:inline;" action={% url "organisation_delete" organisation.pk %} method="post" onsubmit="return confirm('Are you sure you want to delete {{ organisation }}?')">{% csrf_token %}
+    <input type="submit" value="Delete" />
+    </form></li>
+    {% empty %}
+        <li>No Organisations yet.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
