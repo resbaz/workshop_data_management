@@ -33,7 +33,9 @@ Here's how to do that on the various operating systems out there:
 5. Install the dependencies for installing psycopg2:  
 `$ sudo apt-get install libpq-dev python-dev`
 6. Install django and psycopg2:  
-`(resbaz-dev)$ pip install django psycopg2`
+`(resbaz-dev)$ pip install django psycopg2`  
+7. Install other libraries that might be useful:  
+`(resbaz-dev)$ pip install django-multiselectfield`  
 
 Now everytime you want to start a work session:
 * Start postgresql:  

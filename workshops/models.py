@@ -4,6 +4,7 @@
 """
 
 from django.db import models
+from multiselectfield import MultiSelectField
 
 
 GENDER_CHOICES = (
@@ -239,7 +240,7 @@ class Person(models.Model):
 
     notes = models.CharField(max_length=200, blank=True, null=True)
 
-    teaching_teams = models.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True, null=True)  # FIMXME: Need to be able to select multiple choices    
+    teaching_teams = MultiSelectField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True, null=True)     
     email_list = models.BooleanField(u'Happy to be on email list', default=True)         
 
     def __unicode__(self):
@@ -277,7 +278,7 @@ class Participant(models.Model):
     department = models.CharField(max_length=3, choices=DEPT_CHOICES, blank=True) # FIXME: Choices should depend on institution
     
     career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
-    dietary_requirements = models.CharField(u'dietary requirements', max_length=2, choices=DIETARY_CHOICES, blank=True) # FIMXME: Need to be able to select multiple choices
+    dietary_requirements = MultiSelectField(max_length=20, choices=DIETARY_CHOICES, blank=True, null=True)
     
     offer = models.BooleanField(u'offered a ticket', default=False)   
     acceptance = models.BooleanField(u'accepted a ticket', default=False)   
@@ -287,6 +288,6 @@ class Participant(models.Model):
         return '%s, %s' % (self.workshop, self.person)
         
     class Meta:
-        ordering = ['workshop', 'role', 'person' ]
+        ordering = ['workshop', 'role', 'person']
 
 
