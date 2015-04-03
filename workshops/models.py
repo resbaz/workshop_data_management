@@ -12,19 +12,75 @@ GENDER_CHOICES = (
     ('o', 'Other'),
     )
 
+ROLE_CHOICES = (
+    ('i', 'Instructor'),
+    ('h', 'Helper'),
+    ('s', 'Student'),
+    )
+
 CAREER_CHOICES = (
-    (1,'phd'),
-    (2, 'ecr'),
-    (3, 'postdoc'),
+    (1, 'Undergraduate'),
+    (2, 'Honours'),
+    (3, 'Masters'),
+    (4, 'PhD - first year'),
+    (5, 'PhD - second year'),
+    (6, 'PhD - third year and beyond'),
+    (7, 'Postdoc'),
+    (8, 'Early career researcher'),
+    (9, 'Mid career researcher'),
+    (10, 'Senior researcher'),
+    (11, 'Research assistant'),
     )
 
 DIETARY_CHOICES = (
-    (1, 'vegetarian'),
-    (2, 'vegan'),
-    (3, 'gluten free'),
-    (5, 'lactose intolerant'),
-    (6, 'halal'),
+    (1, 'Vegetarian'),
+    (2, 'Vegan'),
+    (3, 'Gluten free'),
+    (5, 'Lactose intolerant'),
+    (6, 'Halal'),
+    (7, 'Kosher'),
     )
+
+CAMPUS_CHOICES = (
+    (1, 'Parkville'),
+    (2, 'Burnley'),
+    (3, 'Albury-Wodonga'),
+    (4, 'Wagga Wagga'),
+    (5, 'Clayton'),    
+    (6, 'Hobart'),
+    (7, 'Burwood'),
+    (8, 'Warrnambool'),
+    (9, 'Ballarat'),
+    (10, 'Gold Coast'),
+    (11, 'Bendigo'),
+    (12, 'Bundoora'),
+    (13, 'Coffs Harbour'),
+    (14, 'Hawthorn'),
+    (15, 'Canberra'),
+    (16, 'Sydney'),
+    (17, 'Footscray'),
+    (18, 'Cradle Coast'),
+    )
+
+# Parkville -> UniMelb, Monash
+# Burnley -> UniMelb
+# Albury-Wodonga -> Charles Sturt
+# Wagga Wagga -> Charles Sturt
+# Clayton -> CSIRO, Monash    
+# Hobart -> CSIRO, UTAS
+# Burwood -> Deakin
+# Warrnambool -> Deakin
+# Ballarat -> Federation Uni
+# Gold Coast -> Griffith
+# Bendigo -> La Trobe
+# Bundoora -> La Trobe
+# Coffs Harbour -> Southern Cross
+# Hawthorn -> Swinburne
+# Canberra -> UNSW
+# Sydney -> UNSW
+# Footscray -> Victoria Uni
+# Cradle Coast -> UTAS
+
 
 ORG_CHOICES = (
     (1,'Australian Antarctic Division'),
@@ -39,47 +95,47 @@ ORG_CHOICES = (
     (10,'Bureau of Meteorology'),
     (11,'Burnet Institute'),
     (12,'Charles Sturt University'),
-    (14,'CSIRO'),
-    (16,'Curtin University of Technology'),
-    (18,'Deakin University'),
-    (19,'Edith Cowan University'),
-    (20,'Federation University'),
-    (21,'Fred Hollows Foundation'),
-    (22,'Griffith University'),
-    (24,'IBM Research'),
-    (25,'James Cook University'),
-    (26,'La Trobe University'),
-    (28,'Macquarie University'),
-    (29,'Monash Alfred Psychiatry Research Centre'),
-    (30,'Monash University'),
-    (32,'Murdoch Childrens Research Institute'),
-    (33,'Museum Victoria'),
-    (34,'New Zealand eScience Infrastructure'),
-    (35,'Peter MacCallum Cancer Centre'),
-    (36,'Queensland Government'),
-    (37,'Queensland University of Technology'),
-    (38,'RMIT'),
-    (39,'Software Sustainability Institute'),
-    (40,'Southern Cross University'),
-    (41,'Swinburne University of Technology'),
-    (42,'University of Adelaide'),
-    (43,'University of Auckland'),
-    (44,'University of Canterbury'),
-    (45,'University of Melbourne'),
-    (47,'University of New England'),
-    (48,'University of Otago'),
-    (49,'University of Queensland'),
-    (50,'University of Southern Queensland'),
-    (51,'University of Sydney'),
-    (52,'University of Tasmania'),
-    (54,'University of Technology Sydney'),
-    (55,'University of the Sunshine Coast'),
-    (56,'University of Western Australia'),
-    (57,'University of Western Sydney'),
-    (58,'University of Wollongong'),
-    (59,'UNSW'),
-    (61,'Victoria University'),
-    (62,'Walter and Eliza Hall Institute of Medical Research'),
+    (13,'CSIRO'),
+    (14,'Curtin University of Technology'),
+    (15,'Deakin University'),
+    (16,'Edith Cowan University'),
+    (17,'Federation University'),
+    (18,'Fred Hollows Foundation'),
+    (19,'Griffith University'),
+    (20,'IBM Research'),
+    (21,'James Cook University'),
+    (22,'La Trobe University'),
+    (23,'Macquarie University'),
+    (24,'Monash Alfred Psychiatry Research Centre'),
+    (25,'Monash University'),
+    (26,'Murdoch Childrens Research Institute'),
+    (27,'Museum Victoria'),
+    (28,'New Zealand eScience Infrastructure'),
+    (29,'Peter MacCallum Cancer Centre'),
+    (30,'Queensland Government'),
+    (31,'Queensland University of Technology'),
+    (32,'RMIT'),
+    (33,'Software Sustainability Institute'),
+    (34,'Southern Cross University'),
+    (35,'Swinburne University of Technology'),
+    (36,'University of Adelaide'),
+    (37,'University of Auckland'),
+    (38,'University of Canterbury'),
+    (39,'University of Melbourne'),
+    (40,'University of New England'),
+    (41,'University of Otago'),
+    (42,'University of Queensland'),
+    (43,'University of Southern Queensland'),
+    (44,'University of Sydney'),
+    (45,'University of Tasmania'),
+    (45,'University of Technology Sydney'),
+    (46,'University of the Sunshine Coast'),
+    (47,'University of Western Australia'),
+    (48,'University of Western Sydney'),
+    (49,'University of Wollongong'),
+    (50,'UNSW'),
+    (51,'Victoria University'),
+    (52,'Walter and Eliza Hall Institute of Medical Research'),
     )
 
 DEPT_CHOICES = (
@@ -175,14 +231,6 @@ class Person(models.Model):
     dob = models.DateField(u'Date of Birth', blank=True, null=True)    
 
 
-class Organisation(models.Model):
-    """The underlying model for organisations."""
-
-    institution = models.CharField(u'institution', max_length=200, choices=ORG_CHOICES)
-    campus = models.CharField(u'campus', max_length=200)
-    department = models.CharField(u'department', max_length=200)
-
-
 class Workshop(models.Model):
     """The underlying model for workshops."""
 
@@ -196,46 +244,23 @@ class Workshop(models.Model):
         ordering = ['start_date',]
 
 
-class Instructor(models.Model):
-    """Intermediate class for instructors."""
+class Participant(models.Model):
+    """Intermediate class for workshop participants."""
 
     workshop = models.ForeignKey(Workshop)
     person = models.ForeignKey(Person)
-    organisation = models.ForeignKey(Organisation)
+    role = models.CharField(u'role', max_length=2, choices=ROLE_CHOICES)
+ 
+    institution = models.CharField(u'institution', max_length=3, choices=ORG_CHOICES)
+    campus = models.CharField(u'campus', max_length=3, choices=CAMPUS_CHOICES)
+    department = models.CharField(u'department', max_length=3, choices=DEPT_CHOICES, blank=True)
+    
     career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
     dietary_requirements = models.CharField(u'dietary requirements', max_length=2, choices=DIETARY_CHOICES)
-
-
-class Helper(models.Model):
-    """Intermediate class for helpers."""
-
-    workshop = models.ForeignKey(Workshop)
-    person = models.ForeignKey(Person)
-    organisation = models.ForeignKey(Organisation)
-    career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
-    dietary_requirements = models.CharField(u'dietary requirements', max_length=2, choices=DIETARY_CHOICES)
-    attendance = models.BooleanField(default=False)
-
-
-class Student(models.Model):
-    """Intermediate class for students."""
-
-    workshop = models.ForeignKey(Workshop)
-    person = models.ForeignKey(Person)
-    organisation = models.ForeignKey(Organisation)
-    career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
-    dietary_requirements = models.CharField(u'dietary requirements', max_length=2, choices=DIETARY_CHOICES)
-    attendance = models.BooleanField(default=False)
-
-
-class Applicant(models.Model):
-    """Intermediate class for applicants."""
-
-    workshop = models.ForeignKey(Workshop)
-    person = models.ForeignKey(Person)
-    organisation = models.ForeignKey(Organisation)
-    career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
-    dietary_requirements = models.CharField(u'dietary requirements', max_length=2, choices=DIETARY_CHOICES)
+    
+    offer = models.BooleanField(default=False)        # Were the offered a ticket?
+    acceptance = models.BooleanField(default=False)   # Did they accept the offer?
+    attendance = models.BooleanField(default=False)   # Did they actually attend?
 
 
 
