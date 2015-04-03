@@ -35,7 +35,7 @@ Here's how to do that on the various operating systems out there:
 6. Install django and psycopg2:  
 `(resbaz-dev)$ pip install django psycopg2`  
 7. Install other libraries that might be useful:  
-`(resbaz-dev)$ pip install django-multiselectfield`  
+`(resbaz-dev)$ pip install django-multiselectfield django-smart-selects`  
 
 Now everytime you want to start a work session:
 * Start postgresql:  
