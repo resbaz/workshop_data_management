@@ -4,7 +4,6 @@
 """
 
 from django.db import models
-from multiselectfield import MultiSelectField
 
 
 GENDER_CHOICES = (
@@ -240,7 +239,7 @@ class Person(models.Model):
 
     notes = models.CharField(max_length=200, blank=True, null=True)
 
-    teaching_teams = MultiSelectField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True, null=True)     
+    teaching_team = model.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True, null=True)     
     email_list = models.BooleanField(u'Happy to be on email list', default=True)         
 
     def __unicode__(self):
@@ -251,7 +250,7 @@ class Person(models.Model):
         
 
 class Workshop(models.Model):
-    """The underlying model for workshops."""
+    """Underlying model for workshops."""
 
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=400, blank=True, null=True)
@@ -266,19 +265,42 @@ class Workshop(models.Model):
         ordering = ['start_date',]
 
 
+class Affiliation(models.Model):
+    """Underlying model for institutional affiliations."""
+    
+    organisation = models.CharField(max_length=3, choices=ORG_CHOICES)
+    campus = models.CharField(max_length=3, choices=CAMPUS_CHOICES)
+    department = models.CharField(max_length=3, choices=DEPT_CHOICES, blank=True)
+
+    def __unicode__(self):
+        return '%s (%s), %s' % (self.organisation, self.campus. self.department)
+
+    class Meta:
+        ordering = ['organisation',]
+
+
+class Diet(model.Model):
+    """Underlying class for dietary requirements."""
+    
+    vegan = models.BooleanField(default=False)
+    vegetarian = models.BooleanField(default=False)
+    gluten_free = models.BooleanField(default=False)
+    lactose_intolerant = models.BooleanField(default=False)
+    halal = models.BooleanField(default=False)
+    kosher = models.BooleanField(default=False)
+    other = models.CharField(max_length=400, blank=True, null=True)
+    
+
 class Participant(models.Model):
     """Intermediate class for workshop participants."""
 
     person = models.ForeignKey(Person)
     workshop = models.ForeignKey(Workshop)
+    institutional_affiliation = models.ForeignKey(Affiliation)
+    dietary_requirements = models.ForeignKey(Diet)
+
     role = models.CharField(max_length=2, choices=ROLE_CHOICES)
- 
-    institution = models.CharField(max_length=3, choices=ORG_CHOICES)
-    campus = models.CharField(max_length=3, choices=CAMPUS_CHOICES)  # FIXME: Choices should depend on institution
-    department = models.CharField(max_length=3, choices=DEPT_CHOICES, blank=True) # FIXME: Choices should depend on institution
-    
     career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
-    dietary_requirements = MultiSelectField(max_length=20, choices=DIETARY_CHOICES, blank=True, null=True)
     
     offer = models.BooleanField(u'offered a ticket', default=False)   
     acceptance = models.BooleanField(u'accepted a ticket', default=False)   
