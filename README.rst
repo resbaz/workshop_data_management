@@ -1,4 +1,4 @@
-# workshop-data-management
+workshop-data-management
 
 This project is a combination of practical and educational - we are creating a
 small web based database application for the management of the Research 
