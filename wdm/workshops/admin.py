@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from workshops.models import Person, Workshop, Participant, Institution, Diet
+from workshops.models import Person, Workshop, Participant, Institution
 
 class PersonAdmin(admin.ModelAdmin):
     list_display = ['__unicode__', 'notes']
@@ -17,14 +17,8 @@ class InstitutionAdmin(admin.ModelAdmin):
     list_display = ['__unicode__']
     list_filter = ['organisation', 'campus', 'department']
 
-#class DietAdmin(admin.ModelAdmin):
-    #list_display = []
-    #list_filter = []
-
-
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Workshop, WorkshopAdmin)
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Institution, InstitutionAdmin)
-#admin.site.register(Diet, DietAdmin)

@@ -273,22 +273,12 @@ class Institution(models.Model):
     department = models.CharField(max_length=3, choices=DEPT_CHOICES, blank=True)
 
     def __unicode__(self):
-        return '%s (%s), %s' % (self.organisation, self.campus. self.department)
+        return '%s (%s), %s' % (self.get_organisation_display(), 
+                                self.get_campus_display(),
+                                self.get_department_display())
 
     class Meta:
         ordering = ['organisation',]
-
-
-class Diet(models.Model):
-    """Underlying class for dietary requirements."""
-    
-    vegan = models.BooleanField(default=False)
-    vegetarian = models.BooleanField(default=False)
-    gluten_free = models.BooleanField(default=False)
-    lactose_intolerant = models.BooleanField(default=False)
-    halal = models.BooleanField(default=False)
-    kosher = models.BooleanField(default=False)
-    other = models.CharField(max_length=400, blank=True, null=True)
     
 
 class Participant(models.Model):
@@ -297,7 +287,6 @@ class Participant(models.Model):
     person = models.ForeignKey(Person)
     workshop = models.ForeignKey(Workshop)
     institution = models.ForeignKey(Institution)
-    dietary_requirements = models.ForeignKey(Diet)
 
     role = models.CharField(max_length=2, choices=ROLE_CHOICES)
     career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
@@ -305,6 +294,15 @@ class Participant(models.Model):
     offer = models.BooleanField(u'offered a ticket', default=False)   
     acceptance = models.BooleanField(u'accepted a ticket', default=False)   
     attendance = models.BooleanField(u'attended the workshop', default=False)   
+
+    vegan = models.BooleanField(default=False)
+    vegetarian = models.BooleanField(default=False)
+    gluten_free = models.BooleanField(default=False)
+    lactose_intolerant = models.BooleanField(default=False)
+    halal = models.BooleanField(default=False)
+    kosher = models.BooleanField(default=False)
+    other_diet = models.CharField(u'other dietary requirements', max_length=400, blank=True, null=True)
+
 
     def __unicode__(self):
         return '%s, %s' % (self.workshop, self.person)
