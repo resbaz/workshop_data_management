@@ -17,6 +17,13 @@ Here's how to do that on the various operating systems out there:
 #### postgresql
 
 1. Install it: `$ sudo apt-get install postgresql`
+2. Create a new database user:
+
+    sudo -u postgres createuser -D -A -P myuser
+
+3. Create a database which the user can read/write to
+
+    sudo -u postgres createdb -O myuser mydb
 
 #### django
 
