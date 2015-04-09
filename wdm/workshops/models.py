@@ -239,7 +239,7 @@ class Person(models.Model):
 
     notes = models.CharField(max_length=200, blank=True, null=True)
 
-    teaching_team = model.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True, null=True)     
+    teaching_team = models.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True, null=True)     
     email_list = models.BooleanField(u'Happy to be on email list', default=True)         
 
     def __unicode__(self):
@@ -265,8 +265,8 @@ class Workshop(models.Model):
         ordering = ['start_date',]
 
 
-class Affiliation(models.Model):
-    """Underlying model for institutional affiliations."""
+class Institution(models.Model):
+    """Underlying model for institutions."""
     
     organisation = models.CharField(max_length=3, choices=ORG_CHOICES)
     campus = models.CharField(max_length=3, choices=CAMPUS_CHOICES)
@@ -279,7 +279,7 @@ class Affiliation(models.Model):
         ordering = ['organisation',]
 
 
-class Diet(model.Model):
+class Diet(models.Model):
     """Underlying class for dietary requirements."""
     
     vegan = models.BooleanField(default=False)
@@ -296,7 +296,7 @@ class Participant(models.Model):
 
     person = models.ForeignKey(Person)
     workshop = models.ForeignKey(Workshop)
-    institutional_affiliation = models.ForeignKey(Affiliation)
+    institution = models.ForeignKey(Institution)
     dietary_requirements = models.ForeignKey(Diet)
 
     role = models.CharField(max_length=2, choices=ROLE_CHOICES)
