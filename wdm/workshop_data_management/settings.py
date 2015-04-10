@@ -51,6 +51,26 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'workshop_data_management.urls'
 
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR+'/templates/',],
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.i18n',
+            ],
+        },
+    },
+]
+
+
+
+
 WSGI_APPLICATION = 'workshop_data_management.wsgi.application'
 
 

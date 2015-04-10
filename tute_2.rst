@@ -277,4 +277,23 @@ some results:
 .. image:: imgs/template_doesnt-exist.png
 
 
+Template does not exist! Ok, so we have a data model, we know what shape to 
+deliver that data in (views), we know where to deliver it (urls). Now is the
+time to render that data.
+
+This is a multi part step, but is the last one - we are almost there.
+
+At the top level of the project - in the same folder as the manage.py
+file, add a directory called templates, templates/admin and 
+templates/workshops.
+
+::
+
+    $ mkdir -p templates/admin
+    $ mkdir templates/workshops
+
+(mkdir -p says "make all the folders that don't exist", we don't need it on the 
+second line because we know that templates exists from the previous command)
+
+
 
