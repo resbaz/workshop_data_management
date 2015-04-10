@@ -125,7 +125,7 @@ automatically generated web form.
 
 
 Aside
-#####
+*****
 
 For an example of when we might want to exclude information from a form, here's 
 a quick example:
@@ -164,6 +164,7 @@ Here we tell Django that when it saves an ImportantInformation object, that it
 should first record the date of last change as now() according to the 
 computer's internal clock, and then call the regular save method (which we 
 don't have to define, it's done for us).
+
 
 Workshop Project - URLs 
 -----------------------
@@ -261,6 +262,11 @@ Hopefully you can see how powerful what we have just done is - with 10 lines
 of code, we have created *all* of possible urls we will need for all of the
 workshops.
 
-And yes, it will be this easy for all of the oher objects as well. 
+And yes, it will be this easy for all of the other objects as well. 
+
+
+Workshop Project - templates
+----------------------------
+
 
 
