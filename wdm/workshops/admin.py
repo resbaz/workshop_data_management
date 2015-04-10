@@ -12,6 +12,13 @@ class WorkshopAdmin(admin.ModelAdmin):
 class ParticipantAdmin(admin.ModelAdmin):
     list_display = ['workshop', 'person', 'role']
     list_filter = ['person', 'workshop', 'role', 'attendance']
+    fieldsets = (
+        (None, {'fields': ('workshop',)}),
+        ('Participant', {'fields':('person', 'institution', 'role', 'career_stage',)}),
+        ('Dietary requirements', {'fields': ('vegan', 'vegetarian', 'gluten_free', 'lactose_intolerant', 'halal', 'kosher', 'other_diet'), 'classes': ('collapse',),}),
+        ('Attendance', {'fields': ('offer', 'acceptance', 'attendance')}),
+        )
+
 
 class InstitutionAdmin(admin.ModelAdmin):
     list_display = ['__unicode__']
