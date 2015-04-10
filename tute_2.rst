@@ -296,4 +296,20 @@ templates/workshops.
 second line because we know that templates exists from the previous command)
 
 
+Because we want to reduce our typing as much as possible, we will put most of
+our HTML in a template that we call from within the individual files.
+
+You will find in the repository that there is a templates/base.html file. If
+you read it closely it will make some sense to those that have a moderate html
+understanding. If you don't, don't worry. It's not that important in the short
+term.
+
+Once these files are in place, reload the server and you will see a very boring
+website. To make it pretty we use CSS and JS. Neither HTML, CSS, nor JS are 
+part of this course, so we are going to take a short cut.
+
+Download Bootstrap, the CSS and JS that make Twitter all beautiful (it's FREE).
+
+`Bootstrap <https://github.com/twbs/bootstrap/releases/download/v3.3.4/bootstrap-3.3.4-dist.zip>`_
+
 
