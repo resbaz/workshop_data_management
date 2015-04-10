@@ -169,11 +169,15 @@ don't have to define, it's done for us).
 Workshop Project - URLs 
 -----------------------
 
-We have now created some views - very simplistic, yet generic, ways of how we would like our data presented. How do we make these views real? 
+We have now created some views - very simplistic, yet generic, ways of how we 
+would like our data presented. How do we make these views real? 
 
 For a quik primer, here is how it all fits together:
 
-data-description (models.py) -> data munged for web (views.py - note, this is in python) -> urls.py (how do we get to those views) -> templates/x.html (what the browser will use to render those views)
+data-description (models.py) -> 
+data munged for web (views.py - note, this is in python) -> 
+urls.py (how do we get to those views) -> 
+templates/x.html (what the browser will use to render those views)
 
 Let's write the URLs.
 
