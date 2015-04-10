@@ -199,7 +199,7 @@ workshop_data_management/urls.py
         url(r'^admin/', include(admin.site.urls)),
         # Everything above this line should be default in your urls
         # so we just point to our new app's urls:
-        url(r'^', include('workshops.urls))',
+        url(r'^', include('workshops.urls')),
 
     )
 
@@ -267,6 +267,11 @@ And yes, it will be this easy for all of the other objects as well.
 
 Workshop Project - Templates
 ----------------------------
+
+If we now start the development server and go to 127.0.0.1:8000/ we should see 
+some results:
+
+.. image:: imgs/template_doesnt-exist.png
 
 
 
