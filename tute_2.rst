@@ -204,13 +204,12 @@ workshop_data_management/urls.py
         # Everything above this line should be default in your urls
         # so we just point to our new app's urls:
         url(r'^', include('workshops.urls')),
-
     )
 
 What this tells Django is:
 
- - when a user goes to http://url.com/admin use the urls within the admin* app
- - when a user goes to http://url.com/ use the urls within the workshops app
+ - when a user goes to `http://url.com/admin`_ use the urls within the admin* app
+ - when a user goes to `http://url.com/`_ use the urls within the workshops app
 
 (The admin app comes out of the box - we don't need to create anything to use 
 it apart from admin.py)
