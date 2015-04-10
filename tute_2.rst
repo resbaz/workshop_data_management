@@ -265,7 +265,7 @@ workshops.
 And yes, it will be this easy for all of the other objects as well. 
 
 
-Workshop Project - templates
+Workshop Project - Templates
 ----------------------------
 
 
