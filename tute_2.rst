@@ -223,12 +223,12 @@ workshops/urls.py
     from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete
 
     urlpatterns = patterns('',
-        url(r'^$', WorkshopList.as_view(), name='index')',
-        url(r'^workshops/$', WorkshopList.as_view(), name='index')',
-        url(r'^workshops/add/$', WorkshopCreate.as_view(), name='workshop_add')',
-        url(r'^workshops/(?P<pk>[0-9]+)/$', WorkshopDetail.as_view(), name='workshop_detail')',
-        url(r'^workshops/(?P<pk>[0-9]+)/update/$', WorkshopUpdate.as_view(), name='workshop_update')',
-        url(r'^workshops/(?P<pk>[0-9]+)/delete/$', WorkshopDelete.as_view(), name='workshop_delete')',
+        url(r'^$', WorkshopList.as_view(), name='index'),
+        url(r'^workshops/$', WorkshopList.as_view(), name='index'),
+        url(r'^workshops/add/$', WorkshopCreate.as_view(), name='workshop_add'),
+        url(r'^workshops/(?P<pk>[0-9]+)/$', WorkshopDetail.as_view(), name='workshop_detail'),
+        url(r'^workshops/(?P<pk>[0-9]+)/update/$', WorkshopUpdate.as_view(), name='workshop_update'),
+        url(r'^workshops/(?P<pk>[0-9]+)/delete/$', WorkshopDelete.as_view(), name='workshop_delete'),
     )
 
 Despite only adding 10 lines of code, we have now defined all the Workshop urls
