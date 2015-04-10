@@ -31,6 +31,14 @@ views.py, and an html template or two, how powerful Django really can be in
 bringing your data to the web for ease of use.
 
 
+Workshop Project - Admin Views
+------------------------------
+
+We can quicky update our admin to make the admin web interface more sensible.
+
+etc etc
+
+
 Workshop Project - Views
 ------------------------
 
@@ -110,5 +118,149 @@ spot.
     class WorkshopDelete(DeleteView):
         model = Workshop
 
-As you can see, that was not only easy, it is also self explanitory 
+These should be fairly self explanatory. The only thing that does warrant 
+explanaition is the CreateView **does** require the second variable "fields" in
+order to function. Any fields that are not on this list aren't on the 
+automatically generated web form. 
+
+
+Aside
+#####
+
+For an example of when we might want to exclude information from a form, here's 
+a quick example:
+
+*models.py*
+
+::
+
+    class ImportantInformation(models.Model):
+        title = models.CharField(max_length=100)
+        description = models.CharField(max_length=400, blank=True, null=True)
+        ImportantNumber = models.IntegerField()
+        
+        date_of_last_change = models.DateField(auto_now=True)
+        last_changed_by = ForeignKey(User)
+
+As you can see here, we are keeping a record of when the data was last changed
+and who the last user was that changed the data. Neither of these fields will
+be filled in by the user themselves, we will do this in the background. The
+easiest way to do this is to *override* the save() method:
+
+:: 
+    
+    class ImportantInformation(models.Model):
+        title = models.CharField(max_length=100)
+        description = models.CharField(max_length=400, blank=True, null=True)
+        ImportantNumber = models.IntegerField()
+        
+        date_of_last_change = models.DateField(auto_now=True)
+
+        def save(self):
+            self.date_of_last_change = datetime.datetime.now()
+            super(ImportantInformation, self).save()
+
+Here we tell Django that when it saves an ImportantInformation object, that it
+should first record the date of last change as now() according to the 
+computer's internal clock, and then call the regular save method (which we 
+don't have to define, it's done for us).
+
+Workshop Project - URLs 
+-----------------------
+
+We have now created some views - very simplistic, yet generic, ways of how we would like our data presented. How do we make these views real? 
+
+For a quik primer, here is how it all fits together:
+
+data-description (models.py) -> data munged for web (views.py - note, this is in python) -> urls.py (how do we get to those views) -> templates/x.html (what the browser will use to render those views)
+
+Let's write the URLs.
+
+First, we need to adjust the urls at the top level - the Project level. 
+We called our project workshop_data_management and our app workshops.
+
+Because we like to keep this modular, we will need to edit two files:
+
+First we edit the project urls, so it knows where to fine the pp urls:
+
+workshop_data_management/urls.py 
+
+::
+
+    from django.conf.urls import patterns, include, url
+    from django.contrib import admin
+
+    urlpatterns = patterns('',
+        # Examples:
+        # url(r'^$', 'workshop_data_management.views.home', name='home'),
+        # url(r'^blog/', include('blog.urls')),
+
+        url(r'^admin/', include(admin.site.urls)),
+        # Everything above this line should be default in your urls
+        # so we just point to our new app's urls:
+        url(r'^', include('workshops.urls))',
+
+    )
+
+What this tells Django is:
+
+ - when a user goes to http://url.com/admin use the urls within the admin* app
+ - when a user goes to http://url.com/ use the urls within the workshops app
+
+(The admin app comes out of the box - we don't need to create anything to use 
+it apart from admin.py)
+
+Second, we will edit the workshops's urls.py to point to each view. You may 
+need to create this file if it doesn't exist.
+
+workshops/urls.py
+
+::
+
+    from django.conf.urls import url, patterns
+
+    from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete
+
+    urlpatterns = patterns('',
+        url(r'^$', WorkshopList.as_view(), name='index')',
+        url(r'^workshops/$', WorkshopList.as_view(), name='index')',
+        url(r'^workshops/add/$', WorkshopCreate.as_view(), name='workshop_add')',
+        url(r'^workshops/(?P<pk>[0-9]+)/$', WorkshopDetail.as_view(), name='workshop_detail')',
+        url(r'^workshops/(?P<pk>[0-9]+)/update/$', WorkshopUpdate.as_view(), name='workshop_update')',
+        url(r'^workshops/(?P<pk>[0-9]+)/delete/$', WorkshopDelete.as_view(), name='workshop_delete')',
+    )
+
+Despite only adding 10 lines of code, we have now defined all the Workshop urls
+we will need in the short term. Let's take a look at what it all means.
+
+The first two lines are standard - they are bringing in the tools we need to
+build and direct the urls.
+
+The url patterns are where the really interesting stuff happens. 
+
+For a quick reference point, (?P<pk>[0-9]+) means "a list of numbers that will
+represent the pk (primary key or id number) of any particular workshop."
+
+These urls will now work:
+
+* http://url.com/ - will give us a list of all the workshops that are available
+* http://url.com/workshop/ - will give us a list of all the workshops that are 
+  available
+* http://url.com/workshop/add/ - will take us to a page where we can create a 
+  new workshop
+* http://url.com/workshop/1 - will take us to the detail page of the workshop
+  with primary key 1 (pk=1)
+* http://url.com/workshop/256 - will take us to the detail page of the workshop
+  with primary key 256 (pk=256)
+* http://url.com/workshop/23/update/ - will take us to the page where we can 
+  update the details of workshop with pk=23
+* http://url.com/workshop/23/delete/ - will take us to the page where we can 
+  delete the workshop with pk=23
+
+Hopefully you can see how powerful what we have just done is - with 10 lines 
+of code, we have created *all* of possible urls we will need for all of the
+workshops.
+
+And yes, it will be this easy for all of the oher objects as well. 
+
 

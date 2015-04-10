@@ -19,11 +19,9 @@ class ParticipantAdmin(admin.ModelAdmin):
         ('Attendance', {'fields': ('offer', 'acceptance', 'attendance')}),
         )
 
-
 class InstitutionAdmin(admin.ModelAdmin):
     list_display = ['__unicode__']
     list_filter = ['organisation', 'campus', 'department']
-
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Workshop, WorkshopAdmin)
