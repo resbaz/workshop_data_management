@@ -293,14 +293,13 @@ class Participant(models.Model):
     
     offer = models.BooleanField(u'offered a ticket', default=False)   
     acceptance = models.BooleanField(u'accepted a ticket', default=False)   
-    attendance = models.BooleanField(u'attended the workshop', default=False)   
+    attendance_start = models.NullBooleanField(u'attended the beginning of the workshop', default=Null)   
+    attendance_end = models.NullBooleanField(u'was still there at the end of the workshop', default=Null)
 
     vegan = models.BooleanField(default=False)
     vegetarian = models.BooleanField(default=False)
     gluten_free = models.BooleanField(default=False)
     lactose_intolerant = models.BooleanField(default=False)
-    halal = models.BooleanField(default=False)
-    kosher = models.BooleanField(default=False)
     other_diet = models.CharField(u'other dietary requirements', max_length=400, blank=True, null=True)
 
 
