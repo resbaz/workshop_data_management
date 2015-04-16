@@ -257,7 +257,10 @@ class Workshop(models.Model):
     start_date = models.DateField()
     teaching_hours = models.IntegerField()
     catering = models.BooleanField(default=False)
-
+    
+    website = models.URLField(blank=True, null=True)
+    blog_post = models.URLField(blank=True, null=True)
+    
     def __unicode__(self):
         return '%s' % (self.title)
 
