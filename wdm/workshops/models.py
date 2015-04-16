@@ -32,11 +32,12 @@ CAREER_CHOICES = (
     ('4', 'PhD - first year'),
     ('5', 'PhD - second year'),
     ('6', 'PhD - third year and beyond'),
-    ('7', 'Postdoc'),
-    ('8', 'Early career researcher'),
-    ('9', 'Mid career researcher'),
-    ('10', 'Senior researcher'),
-    ('11', 'Research assistant'),
+    ('7', 'Postgraduate student'),
+    ('8', 'Postdoc'),
+    ('9', 'Early career researcher'),
+    ('10', 'Mid career researcher'),
+    ('11', 'Senior researcher'),
+    ('12', 'Research assistant'),
     )
 
 DIETARY_CHOICES = (
@@ -234,12 +235,12 @@ class Person(models.Model):
 
     name = models.CharField(max_length=128)
     email = models.EmailField()
-    gender = models.CharField(max_length=2, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=2, choices=GENDER_CHOICES, blank=True)
     dob = models.DateField(u'Date of Birth', blank=True, null=True)
 
-    notes = models.CharField(max_length=200, blank=True, null=True)
+    notes = models.CharField(max_length=200, blank=True)
 
-    teaching_team = models.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True, null=True)     
+    teaching_team = models.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True)     
     email_list = models.BooleanField(u'Happy to be on email list', default=True)         
 
     def __unicode__(self):
@@ -253,13 +254,13 @@ class Workshop(models.Model):
     """Underlying model for workshops."""
 
     title = models.CharField(max_length=100)
-    description = models.CharField(max_length=400, blank=True, null=True)
+    description = models.CharField(max_length=400, blank=True)
     start_date = models.DateField()
     teaching_hours = models.IntegerField()
     catering = models.BooleanField(default=False)
     
-    website = models.URLField(blank=True, null=True)
-    blog_post = models.URLField(blank=True, null=True)
+    website = models.URLField(blank=True)
+    blog_post = models.URLField(blank=True)
     
     def __unicode__(self):
         return '%s' % (self.title)
@@ -272,7 +273,7 @@ class Institution(models.Model):
     """Underlying model for institutions."""
     
     organisation = models.CharField(max_length=3, choices=ORG_CHOICES)
-    campus = models.CharField(max_length=3, choices=CAMPUS_CHOICES)
+    campus = models.CharField(max_length=3, choices=CAMPUS_CHOICES, blank=True)
     department = models.CharField(max_length=3, choices=DEPT_CHOICES, blank=True)
 
     def __unicode__(self):
@@ -292,7 +293,7 @@ class Participant(models.Model):
     institution = models.ForeignKey(Institution)
 
     role = models.CharField(max_length=2, choices=ROLE_CHOICES)
-    career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES)
+    career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES, blank=True)
     
     offer = models.BooleanField(u'offered a ticket', default=False)   
     acceptance = models.BooleanField(u'accepted a ticket', default=False)   
@@ -303,7 +304,7 @@ class Participant(models.Model):
     vegetarian = models.BooleanField(default=False)
     gluten_free = models.BooleanField(default=False)
     lactose_intolerant = models.BooleanField(default=False)
-    other_diet = models.CharField(u'other dietary requirements', max_length=400, blank=True, null=True)
+    other_diet = models.CharField(u'other dietary requirements', max_length=400, blank=True)
 
 
     def __unicode__(self):
@@ -311,5 +312,3 @@ class Participant(models.Model):
         
     class Meta:
         ordering = ['workshop', 'role', 'person']
-
-
