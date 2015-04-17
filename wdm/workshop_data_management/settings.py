@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0',]
+ALLOWED_HOSTS = ['0.0.0.0','rb.digitalfabulists.org', '.digitalfabulists.org',]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'import_export',
     'workshops',
+    'django_extensions',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -108,6 +109,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
-    )
+STATICFILES_DIRS = os.path.join(BASE_DIR, "static")
