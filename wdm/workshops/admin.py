@@ -1,14 +1,5 @@
 from django.contrib import admin
-#from import_export import resources
-#from import_export.admin import ImportExportActionModelAdmin
-
 from workshops.models import Person, Workshop, Participant, Institution
-
-#class WorkshopResource(resources.ModelResource):
-    
-#    class Meta:
-#        model Workshop
-
 
 class PersonAdmin(admin.ModelAdmin):
     list_display = ['__unicode__', 'notes']
@@ -16,7 +7,6 @@ class PersonAdmin(admin.ModelAdmin):
 
 class WorkshopAdmin(admin.ModelAdmin):
     list_display = ['__unicode__', 'start_date', 'description']
-    #resource_class = WorkshopResource    
 
 class ParticipantAdmin(admin.ModelAdmin):
     list_display = ['workshop', 'person', 'role']
