@@ -14,12 +14,18 @@ class InstitutionResource(resources.ModelResource):
     class Meta:
         model = Institution
 
-class PersonAdmin(admin.ModelAdmin):
-    list_display = ['__unicode__', 'notes']
+class PersonResource(resources.ModelResource):
+    
+    class Meta:
+        model = Person
+
+class PersonAdmin(ImportExportActionModelAdmin):
+    list_display = ['id', '__unicode__', 'notes']
     list_filter = ['teaching_team']
+    resource_class = PersonResource
 
 class WorkshopAdmin(ImportExportActionModelAdmin):
-    list_display = ['__unicode__', 'start_date', 'description']
+    list_display = ['id', '__unicode__', 'start_date', 'description']
     resource_class = WorkshopResource
 
 class ParticipantAdmin(admin.ModelAdmin):
@@ -33,7 +39,7 @@ class ParticipantAdmin(admin.ModelAdmin):
         )
 
 class InstitutionAdmin(ImportExportActionModelAdmin):
-    list_display = ['__unicode__']
+    list_display = ['id', '__unicode__']
     list_filter = ['organisation', 'campus', 'department']
     resource_class = InstitutionResource
 
