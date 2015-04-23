@@ -256,7 +256,7 @@ class Workshop(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=400, blank=True)
     start_date = models.DateField()
-    teaching_hours = models.IntegerField()
+    teaching_hours = models.FloatField()
     catering = models.BooleanField(default=False)
     
     website = models.URLField(blank=True)
