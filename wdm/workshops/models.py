@@ -300,12 +300,11 @@ class Participant(models.Model):
     attendance_start = models.NullBooleanField(u'attended the beginning of the workshop', default=None)   
     attendance_end = models.NullBooleanField(u'was still there at the end of the workshop', default=None)
 
-    vegan = models.BooleanField(default=False)
-    vegetarian = models.BooleanField(default=False)
-    gluten_free = models.BooleanField(default=False)
-    lactose_intolerant = models.BooleanField(default=False)
+    vegan = models.NullBooleanField(default=None)
+    vegetarian = models.NullBooleanField(default=None)
+    gluten_free = models.NullBooleanField(default=None)
+    lactose_intolerant = models.NullBooleanField(default=None)
     other_diet = models.CharField(u'other dietary requirements', max_length=400, blank=True)
-
 
     def __unicode__(self):
         return '%s, %s' % (self.workshop, self.person)
