@@ -9,6 +9,11 @@ class WorkshopResource(resources.ModelResource):
     class Meta:
         model = Workshop 
 
+class InstitutionResource(resources.ModelResource):
+
+    class Meta:
+        model = Institution
+
 class PersonAdmin(admin.ModelAdmin):
     list_display = ['__unicode__', 'notes']
     list_filter = ['teaching_team']
@@ -27,9 +32,10 @@ class ParticipantAdmin(admin.ModelAdmin):
         ('Attendance', {'fields': ('offer', 'acceptance', 'attendance_start', 'attendance_end')}),
         )
 
-class InstitutionAdmin(admin.ModelAdmin):
+class InstitutionAdmin(ImportExportActionModelAdmin):
     list_display = ['__unicode__']
     list_filter = ['organisation', 'campus', 'department']
+    resource_class = InstitutionResource
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Workshop, WorkshopAdmin)

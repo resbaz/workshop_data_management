@@ -272,14 +272,14 @@ class Workshop(models.Model):
 class Institution(models.Model):
     """Underlying model for institutions."""
     
-    organisation = models.CharField(max_length=3, choices=ORG_CHOICES)
-    campus = models.CharField(max_length=3, choices=CAMPUS_CHOICES, blank=True)
-    department = models.CharField(max_length=3, choices=DEPT_CHOICES, blank=True)
+    organisation = models.CharField(max_length=100)
+    campus = models.CharField(max_length=100, blank=True)
+    department = models.CharField(max_length=100, blank=True)
 
     def __unicode__(self):
-        return '%s (%s), %s' % (self.get_organisation_display(), 
-                                self.get_campus_display(),
-                                self.get_department_display())
+        return '%s (%s), %s' % (self.organisation, 
+                                self.campus,
+                                self.department)
 
     class Meta:
         ordering = ['organisation',]
