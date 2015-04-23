@@ -1,8 +1,15 @@
 from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportActionModelAdmin
-from workshops.models import Person, Workshop, Participant, Institution
+from workshops.models import Person, Workshop, Institution, Participant
 
+
+# Resources for import/export functionality
+
+class PersonResource(resources.ModelResource):
+    
+    class Meta:
+        model = Person
 
 class WorkshopResource(resources.ModelResource):
 
@@ -14,15 +21,12 @@ class InstitutionResource(resources.ModelResource):
     class Meta:
         model = Institution
 
-class PersonResource(resources.ModelResource):
-    
-    class Meta:
-        model = Person
-
 class ParticipantResource(resources.ModelResource):
     
     class Meta:
         model = Participant
+
+# Admin site specifications
 
 class PersonAdmin(ImportExportActionModelAdmin):
     list_display = ['id', 'name', 'notes']
@@ -32,6 +36,11 @@ class PersonAdmin(ImportExportActionModelAdmin):
 class WorkshopAdmin(ImportExportActionModelAdmin):
     list_display = ['id', '__unicode__', 'start_date', 'description']
     resource_class = WorkshopResource
+
+class InstitutionAdmin(ImportExportActionModelAdmin):
+    list_display = ['id', 'organisation', 'campus', 'department']
+    list_filter = ['organisation', 'campus', 'department']
+    resource_class = InstitutionResource
 
 class ParticipantAdmin(ImportExportActionModelAdmin):
     list_display = ['id', 'workshop', 'person', 'role']
@@ -44,13 +53,8 @@ class ParticipantAdmin(ImportExportActionModelAdmin):
         )
     resource_class = ParticipantResource
 
-class InstitutionAdmin(ImportExportActionModelAdmin):
-    list_display = ['id', 'organisation', 'campus', 'department']
-    list_filter = ['organisation', 'campus', 'department']
-    resource_class = InstitutionResource
 
 admin.site.register(Person, PersonAdmin)
 admin.site.register(Workshop, WorkshopAdmin)
 admin.site.register(Participant, ParticipantAdmin)
 admin.site.register(Institution, InstitutionAdmin)
-
