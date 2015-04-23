@@ -18,3 +18,14 @@ had that lead to the models.
 
 The `production` branch the one that is "live", while we do our development
 on the `master` branch.
+
+### Importing data
+
+Data in .csv format can be imported via the admin interface
+(we've used the django [import-export](https://django-import-export.readthedocs.org/en/latest/) library).
+Here's a few notes on that process:  
+* True and False values must be represented by a 1 and 0 respectively
+* There must be a header row in the csv file which matches the name of the model fields
+(and the first column must be "id")
+* For fields where you are selecting an existing entry in the database 
+or choosing from pre-set choices, you must specify the id
