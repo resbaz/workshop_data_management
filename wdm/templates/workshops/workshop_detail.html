@@ -2,7 +2,16 @@
 
 {% block main_content %}
 
-	{{ object }}
+    <h3>{{ object.title }}</h3>
+    <h4>{{ object.start_date }}</h4>
+
+<p><strong>Description:</strong> {{ object.description }}</p>
+<p><strong>Teaching Hours:</strong> {{ object.teaching_hours }}</p>
+<p><strong>Catering:</strong> {{object.catering }}</p>
+<p><strong>Website:</strong> {{ objet.website }}</p>
+<p><strong>Blog Post</strong> {{ object.blog_post }}</p>
+	
+
 
 {% endblock main_content %}
 
