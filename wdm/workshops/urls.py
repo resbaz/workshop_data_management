@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 
-from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete, PersonList, PersonCreate, PersonDetail
+from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete, PersonList, PersonCreate, PersonDetail, InstitutionDetail, InstitutionList, InstitutionCreate
 
 urlpatterns = patterns('',
     url(r'^$', WorkshopList.as_view(), name='index'),
@@ -12,6 +12,9 @@ urlpatterns = patterns('',
     url(r'^people/$', PersonList.as_view(), name='person_index'),
     url(r'^people/add/$', PersonCreate.as_view(), name='person_add'),
     url(r'^people/(?P<slug>[-\w]+)/$', PersonDetail.as_view(), name='person_detail'),
+    url(r'^institutions/$', InstitutionList.as_view(), name='institution_index'),
+    url(r'^institutions/add/$', InstitutionCreate.as_view(), name='institution_add'),
+    url(r'^institutions/(?P<slug>[-\w]+)/$', InstitutionDetail.as_view(), name='institution_detail'),
 
 )
 

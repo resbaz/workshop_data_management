@@ -298,11 +298,20 @@ class Institution(models.Model):
     organisation = models.CharField(max_length=100)
     campus = models.CharField(max_length=100, blank=True)
     department = models.CharField(max_length=100, blank=True)
+    slug = models.SlugField(max_length=200, blank=True)
 
     def __unicode__(self):
         return '%s (%s), %s' % (self.organisation, 
                                 self.campus,
                                 self.department)
+
+    def get_absolute_url(self):
+	return reverse('institution_detail', args=[self.slug])
+
+    def save(self):
+        if not self.slug:
+             self.slug = slugify(self)
+	super(Institution, self).save()
 
     class Meta:
         ordering = ['organisation',]

@@ -5,6 +5,23 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Workshop, Person, Institution
 
 '''
+Institution
+'''
+
+class InstitutionMixin(object):
+    model = Institution
+
+class InstitutionList(InstitutionMixin, ListView):
+    pass
+
+class InstitutionDetail(InstitutionMixin, DetailView):
+    pass
+
+class InstitutionCreate(InstitutionMixin, CreateView):
+    pass
+
+
+'''
 Person Views
 '''
 

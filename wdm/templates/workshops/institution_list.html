@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <h2>Institution</h2>
+    <ul>
+        {% for ins in object_list %}
+        <li><a href="{{ ins.get_absolute_url }}">{{ ins }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
