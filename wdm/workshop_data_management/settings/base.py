@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'import_export',
     'workshops',
     'django_extensions',
+    'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
