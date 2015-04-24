@@ -8,8 +8,12 @@
 <p><strong>Description:</strong> {{ object.description }}</p>
 <p><strong>Teaching Hours:</strong> {{ object.teaching_hours }}</p>
 <p><strong>Catering:</strong> {{object.catering }}</p>
-<p><strong>Website:</strong> {{ objet.website }}</p>
-<p><strong>Blog Post</strong> {{ object.blog_post }}</p>
+{% if object.website %}
+	<p><strong>Website:</strong> {{ objet.website }}</p>
+{% endif %}
+{% if object.blog_post %}
+	<p><strong>Blog Post:</strong> {{ object.blog_post }}</p>
+{% endif %}
 	
 
 
