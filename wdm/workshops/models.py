@@ -244,9 +244,19 @@ class Person(models.Model):
     teaching_team = models.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True)     
     email_list = models.BooleanField(u'Happy to be on email list', default=True)         
 
+    slug = models.SlugField(max_length=128, null=True, blank=True)
+
     def __unicode__(self):
         return '%s' % (self.name)
+
+    def get_absolute_url(self):
+	return reverse('person_detail', args=[self.slug])
         
+    def save(self):
+	if not self.slug:
+	    self.slug = slugify(self.name)
+	super(Person, self).save()
+
     class Meta:
         ordering = ['name', ]
         

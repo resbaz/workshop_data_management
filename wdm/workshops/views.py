@@ -2,7 +2,23 @@ from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from .models import Workshop
+from .models import Workshop, Person, Institution
+
+'''
+Person Views
+'''
+
+class PersonMixin(object):
+    model = Person
+
+class PersonList(PersonMixin, ListView):
+    pass
+
+class PersonDetail(PersonMixin, DetailView):
+    pass
+
+class PersonCreate(PersonMixin, CreateView):
+    pass
 
 '''
 Workshop Views
@@ -18,7 +34,7 @@ class WorkshopDetail(WorkshopMixin, DetailView):
     pass 
 
 class WorkshopCreate(WorkshopMixin, CreateView):
-    fields = ['title','description','start_date','teaching_hours','catering']  
+    fields = ['title','description','start_date','teaching_hours','catering', 'website', 'blog_post']  
  
 class WorkshopUpdate(WorkshopMixin, UpdateView):
     pass 

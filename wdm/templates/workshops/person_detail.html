@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+    <h3>{{ object }}</h3>
+
+<p><strong>Email:</strong> {{ object.email }}</p>
+<p><strong>Gender:</strong> {{ object.gender }}</p>
+<p><strong>Date of Birth:</strong> {{ object.dob }}</p>
+{% if object.notes %}
+	<p><strong>Notes:</strong> {{ object.notes }}</p>
+{% endif %}
+{% if object.teaching_team %}
+	<p><strong>Teaching Team:</strong> {{ object.teaching_team }}</p>
+{% endif %}
+	
+
+
+{% endblock main_content %}
+
