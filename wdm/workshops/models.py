@@ -3,8 +3,9 @@
     
 """
 
+from django.core.urlresolvers import reverse
 from django.db import models
-
+from django.utils.text import slugify
 
 GENDER_CHOICES = (
     ('m', 'Male'),
@@ -261,9 +262,21 @@ class Workshop(models.Model):
     
     website = models.URLField(blank=True)
     blog_post = models.URLField(blank=True)
-    
+   
+    slug = models.SlugField(max_length=115, blank=True)   
+ 
     def __unicode__(self):
         return '%s' % (self.title)
+    
+    def get_absolute_url(self):
+	return reverse('workshop_detail', args=[self.slug])
+
+    ''' This creates the slug automagically from the date and title'''
+    def save(self):
+	if not self.slug:
+	    temp = "%s %s" %(self.start_date, self.title)
+	    self.slug = slugify(temp)
+	super(Workshop, self).save()    
 
     class Meta:
         ordering = ['start_date',]
