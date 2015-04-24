@@ -8,18 +8,20 @@ from .models import Workshop
 Workshop Views
 '''
 
-class WorkshopList(ListView):
-    model = Workshop
+class WorkshopMixin(object):
+    model = Workshop	
 
-class WorkshopDetail(DetailView):
-    model = Workshop
+class WorkshopList(WorkshopMixin, ListView):
+    pass 
 
-class WorkshopCreate(CreateView):
-    model = Workshop
+class WorkshopDetail(WorkshopMixin, DetailView):
+    pass 
+
+class WorkshopCreate(WorkshopMixin, CreateView):
     fields = ['title','description','start_date','teaching_hours','catering']  
  
-class WorkshopUpdate(UpdateView):
-    model = Workshop
+class WorkshopUpdate(WorkshopMixin, UpdateView):
+    pass 
 
-class WorkshopDelete(DeleteView):
-    model = Workshop
+class WorkshopDelete(WorkshopMixin, DeleteView):
+    pass 
