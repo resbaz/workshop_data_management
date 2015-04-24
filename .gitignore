@@ -1,4 +1,6 @@
+*.pyo
 *.pyc
 *DS_store
 *swp
 *migrations*
+*local.py*

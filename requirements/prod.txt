@@ -1,0 +1,5 @@
+certifi==14.5.14
+Django==1.8
+pip-tools==0.3.6
+psycopg2==2.6
+uWSGI==2.0.10

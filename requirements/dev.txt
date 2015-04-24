@@ -1,0 +1,10 @@
+certifi==14.5.14
+diff-match-patch==20121119
+Django==1.8
+django-extensions==1.5.2
+django-import-export==0.2.6
+pip-tools==0.3.6
+psycopg2==2.6
+six==1.9.0
+tablib==0.10.0
+uWSGI==2.0.10
