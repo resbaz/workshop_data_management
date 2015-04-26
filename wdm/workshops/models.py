@@ -276,13 +276,13 @@ class Workshop(models.Model):
     slug = models.SlugField(max_length=115, blank=True)   
  
     def __unicode__(self):
-        return '%s' % (self.title)
+        return '%s: %s' % (self.start_date, self.title)
     
     def get_absolute_url(self):
 	return reverse('workshop_detail', args=[self.slug])
 
-    ''' This creates the slug automagically from the date and title'''
     def save(self):
+        """This creates the slug automagically from the date and title"""
 	if not self.slug:
 	    temp = "%s %s" %(self.start_date, self.title)
 	    self.slug = slugify(temp)
@@ -314,7 +314,7 @@ class Institution(models.Model):
 	super(Institution, self).save()
 
     class Meta:
-        ordering = ['organisation',]
+        ordering = ['organisation', 'department']
     
 
 class Participant(models.Model):

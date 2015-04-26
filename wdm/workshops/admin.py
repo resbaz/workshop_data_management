@@ -38,7 +38,7 @@ class WorkshopAdmin(ImportExportActionModelAdmin):
     resource_class = WorkshopResource
 
 class InstitutionAdmin(ImportExportActionModelAdmin):
-    list_display = ['id', 'organisation', 'campus', 'department']
+    list_display = ['id', 'organisation', 'department', 'campus']
     list_filter = ['organisation', 'campus', 'department']
     resource_class = InstitutionResource
 
