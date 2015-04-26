@@ -236,6 +236,7 @@ class Person(models.Model):
 
     name = models.CharField(max_length=128)
     email = models.EmailField()
+    mobile = models.CharField(max_length=20, blank=True)
     gender = models.CharField(max_length=2, choices=GENDER_CHOICES, blank=True)
     dob = models.DateField(u'Date of Birth', blank=True, null=True)
 
