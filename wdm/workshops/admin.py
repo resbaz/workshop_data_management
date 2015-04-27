@@ -39,12 +39,12 @@ class WorkshopAdmin(ImportExportActionModelAdmin):
 
 class InstitutionAdmin(ImportExportActionModelAdmin):
     list_display = ['id', 'organisation', 'department', 'campus']
-    list_filter = ['organisation', 'department']
+    list_filter = ['organisation',]
     resource_class = InstitutionResource
 
 class ParticipantAdmin(ImportExportActionModelAdmin):
     list_display = ['id', 'workshop', 'person', 'role']
-    list_filter = ['role', 'attendance_start', 'attendance_end', 'workshop']
+    list_filter = ['role', 'attendance_start', 'attendance_end', 'workshop', 'institution']
     fieldsets = (
         (None, {'fields': ('workshop',)}),
         ('Participant', {'fields':('person', 'institution', 'role', 'career_stage',)}),
