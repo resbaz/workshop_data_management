@@ -29,3 +29,11 @@ Here's a few notes on that process:
 (and the first column must be "id")
 * For fields where you are selecting an existing entry in the database 
 or choosing from pre-set choices, you must specify the id
+
+### UniMelb institutions
+
+The following are useful notes about the institutions at the University of Melbourne:  
+* In 2015, the departments of Zoology, Botany and Genetics merged to become the School of BioSciences
+* The Walter and Eliza Hall Institute of Medical Research (WEHI) offer undergraduate, Honours and PhD places as the Department of Medical Biology in the Faculty of Medicine, Dentistry and Health Sciences
+
+
