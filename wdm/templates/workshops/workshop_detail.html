@@ -14,8 +14,17 @@
 {% if object.blog_post %}
 	<p><strong>Blog Post:</strong> {{ object.blog_post }}</p>
 {% endif %}
-	
 
+<h4>Participants</h4>
+
+<ul>
+{% for participant in object.participant_set.all %}
+
+	<li><a href="{{ participant.person.get_absolute_url}}">{{ participant.person }}</a></li>	
+
+{% endfor %}
+
+</ul>
 
 {% endblock main_content %}
 

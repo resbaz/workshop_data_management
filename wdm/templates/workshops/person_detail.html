@@ -13,7 +13,16 @@
 {% if object.teaching_team %}
 	<p><strong>Teaching Team:</strong> {{ object.get_teaching_team_display }}</p>
 {% endif %}
-	
+
+<h4>Workshops attended</h4>	
+<ul>
+{% for participant in object.participant_set.all %}
+
+	<li><a href="{{ participant.workshop.get_absolute_url}}">{{ participant.workshop }}</a></li>	
+
+{% endfor %}
+
+</ul>
 
 
 {% endblock main_content %}
