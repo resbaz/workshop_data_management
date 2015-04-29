@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<div class="row">
+
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4 class="panel-title">Workshop Details</h4>
+        </div>
+        <div class="panel-body">
+          <p><strong>Number of Workshops:</strong>{{ object.part_numbers.name }}</p>
+          <p><strong>2013:</strong> {{ object.part_numbers }}</p>
+          <p><strong>2014:</strong> {{ object.id }}</p>
+          <p><strong>2015:</strong> {{ object.location }}</p>
+          {% regroup objects|dictsort:"title" by title as ws_list %}
+            {% for ws in ws_list %}
+                <p><strong></strong> {{ object.serial_number }}</p>
+            {% endfor %}
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+    </div>
+</div>
+{% endblock main_content %}
+

@@ -3,9 +3,16 @@
 {% block main_content %}
 
     <h2>People</h2>
+    {% regroup object_list|dictsort:"first_letter" by first_letter|first|upper as letter_list %}
     <ul>
-        {% for person in object_list %}
-        <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+        {% for letter in letter_list %}
+        <li>{{ letter.grouper }}
+            <ul> 
+                {% for person in letter.list %}
+                    <li><a href="{{ person.get_absolute_url }}">{{ person }}</a></li>
+                {% endfor %}
+            </ul>
+        </li>
         {% endfor %}
     </ul>
 {% endblock %}

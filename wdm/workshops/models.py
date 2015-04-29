@@ -18,6 +18,7 @@ ROLE_CHOICES = (
     ('i', 'Instructor'),
     ('h', 'Helper'),
     ('s', 'Student'),
+    ('t', 'TEMP'),
     )
 
 TEACHING_TEAM_CHOICES = (
@@ -72,13 +73,17 @@ class Person(models.Model):
         return '%s' % (self.name)
 
     def get_absolute_url(self):
-	return reverse('person_detail', args=[self.slug])
+        return reverse('person_detail', args=[self.slug])
         
     def save(self):
-	if not self.slug:
-	    self.slug = slugify(self.name)
-	super(Person, self).save()
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Person, self).save()
 
+    def first_letter(self):
+        first, last = self.name.split(' ',1)
+        return last[0].upper() or ''
+    
     class Meta:
         ordering = ['name', ]
         
@@ -101,14 +106,14 @@ class Workshop(models.Model):
         return '%s: %s' % (self.start_date, self.title)
     
     def get_absolute_url(self):
-	return reverse('workshop_detail', args=[self.slug])
+        return reverse('workshop_detail', args=[self.slug])
 
     def save(self):
         """This creates the slug automagically from the date and title"""
-	if not self.slug:
-	    temp = "%s %s" %(self.start_date, self.title)
-	    self.slug = slugify(temp)
-	super(Workshop, self).save()    
+        if not self.slug:
+            temp = "%s %s" %(self.start_date, self.title)
+            self.slug = slugify(temp)
+        super(Workshop, self).save()    
 
     class Meta:
         ordering = ['start_date',]
@@ -128,12 +133,12 @@ class Institution(models.Model):
                                 self.department)
 
     def get_absolute_url(self):
-	return reverse('institution_detail', args=[self.slug])
+        return reverse('institution_detail', args=[self.slug])
 
     def save(self):
         if not self.slug:
              self.slug = slugify(self)
-	super(Institution, self).save()
+        super(Institution, self).save()
 
     class Meta:
         ordering = ['organisation', 'department']
