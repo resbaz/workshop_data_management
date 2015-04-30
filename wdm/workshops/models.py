@@ -108,6 +108,15 @@ class Workshop(models.Model):
     def get_absolute_url(self):
         return reverse('workshop_detail', args=[self.slug])
 
+    def total_attendance(self):
+        return self.participant_set.all().count()
+   
+    def career_stats(self):
+        career_stats = {}
+        for stage_id, stage in CAREER_CHOICES:
+            career_stats[stage_id]=self.participant_set.filter(career_stage=stage_id).count()
+        return career_stats
+
     def save(self):
         """This creates the slug automagically from the date and title"""
         if not self.slug:

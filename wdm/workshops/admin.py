@@ -34,7 +34,7 @@ class PersonAdmin(ImportExportActionModelAdmin):
     resource_class = PersonResource
 
 class WorkshopAdmin(ImportExportActionModelAdmin):
-    list_display = ['id', '__unicode__', 'start_date', 'description']
+    list_display = ['id', '__unicode__', 'start_date', 'description', 'total_attendance']
     resource_class = WorkshopResource
 
 class InstitutionAdmin(ImportExportActionModelAdmin):
