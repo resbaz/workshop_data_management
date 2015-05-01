@@ -111,6 +111,15 @@ class Workshop(models.Model):
     def total_attendance(self):
         return self.participant_set.all().count()
    
+    def institute_stats(self):
+        inst_stats = {}
+        for participant in self.participant_set.all():
+            if participant.institution not in inst_stats: 
+                inst_stats[participant.institution] = 1
+            else:
+                inst_stats[participant.institution] += 1
+        return inst_stats
+
     def career_stats(self):
         career_stats = {}
         for stage_id, stage in CAREER_CHOICES:
@@ -137,13 +146,24 @@ class Institution(models.Model):
     slug = models.SlugField(max_length=200, blank=True)
 
     def __unicode__(self):
+        temp_name = self.organisation
+        if self.campus:
+            temp_name += " (%s)" % self.campus
+        if self.department:
+            temp_name += ", %s" % self.department
+        return temp_name 
+        '''
         return '%s (%s), %s' % (self.organisation, 
                                 self.campus,
                                 self.department)
+        '''
 
     def get_absolute_url(self):
         return reverse('institution_detail', args=[self.slug])
 
+    def total_attendees(self):
+        return Participant.objects.filter(institution=self).count()
+    
     def save(self):
         if not self.slug:
              self.slug = slugify(self)

@@ -47,6 +47,13 @@ def dashboard(request):
                 else:
                     total[stage_id] += ppnt[w]['stats'][stage_id]
 
+    inst = {}
+    institutes = Institution.objects.all()
+    for i in institutes:
+        if i.total_attendees() > 0:
+            inst[i.id] = {i, i.total_attendees()}
+    
+
     ppl = {} 
     people = Person.objects.all()
     ppl['total'] = people.count()
@@ -55,7 +62,7 @@ def dashboard(request):
     ppl['other_gender'] = people.filter(gender='o').count()
     ppl['unknown_gender'] = people.filter(gender='').count()
     
-    return render(request, 'workshops/index.html', {'ws': ws, 'ppnt': ppnt, 'ppl':ppl, 'total':total}) 
+    return render(request, 'workshops/index.html', {'ws': ws, 'ppnt': ppnt, 'ppl':ppl, 'inst': inst, 'total':total}) 
 
 '''
 Institution

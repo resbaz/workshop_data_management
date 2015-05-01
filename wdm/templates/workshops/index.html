@@ -28,6 +28,29 @@
           <p><strong>Unknown:</strong> {{ ppl.unknown_gender }} ({% widthratio ppl.unknown_gender ppl.total 100 %}%)</p>
         </div>
       </div>
+      <div class="panel panel-danger">
+        <div class="panel-heading">
+          <h4 class="panel-title">People</h4>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped table-hover">
+           <thead>
+            <tr>
+                <td>Institution</td>
+                <td>Total Attendees</td>
+            </tr>
+           </thead>
+           <tbody>
+            {% for id in inst %}
+            <tr>
+            <td>{{ id }}</td>
+            <td>{{ id.total_attendees }}</td>
+            </tr>
+            {% endfor %}
+           </tbody>
+         </table>      
+        </div>
+      </div>
     </div>
     <div class="col-md-6">
       <div class="panel panel-warning">
