@@ -137,6 +137,14 @@ class Workshop(models.Model):
         ordering = ['start_date',]
 
 
+class InstitutionManager(models.Manager):
+    def attendees_per_org(self):
+        total = {}
+        for org in Institution.objects.distinct('organisation').values('organisation'):
+            if Participant.objects.filter(institution__organisation=org['organisation']).count()>0:
+                total[org['organisation']] = Participant.objects.filter(institution__organisation=org['organisation']).count()
+        return total
+
 class Institution(models.Model):
     """Underlying model for institutions."""
     
@@ -145,6 +153,9 @@ class Institution(models.Model):
     department = models.CharField(max_length=100, blank=True)
     slug = models.SlugField(max_length=200, blank=True)
 
+    objects = models.Manager() 
+    counter = InstitutionManager()
+
     def __unicode__(self):
         temp_name = self.organisation
         if self.campus:
@@ -152,11 +163,6 @@ class Institution(models.Model):
         if self.department:
             temp_name += ", %s" % self.department
         return temp_name 
-        '''
-        return '%s (%s), %s' % (self.organisation, 
-                                self.campus,
-                                self.department)
-        '''
 
     def get_absolute_url(self):
         return reverse('institution_detail', args=[self.slug])

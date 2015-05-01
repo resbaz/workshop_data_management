@@ -41,10 +41,11 @@
             </tr>
            </thead>
            <tbody>
-            {% for id in inst %}
+            {{ attendees_per_org }}
+            {% for org in attendees_per_org %}
             <tr>
-            <td>{{ id }}</td>
-            <td>{{ id.total_attendees }}</td>
+                <td>{{ org }}</td>
+                <td>{{ attendees_per_org.org }}</td>
             </tr>
             {% endfor %}
            </tbody>
