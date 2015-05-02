@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.utils.text import slugify
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 
 from .models import Workshop, Person, Institution, Participant, CAREER_CHOICES, DIETARY_CHOICES
 
@@ -85,6 +86,7 @@ class InstitutionCreate(InstitutionMixin, CreateView):
 '''
 Person Views
 '''
+
 
 class PersonMixin(object):
     model = Person

@@ -4,17 +4,6 @@
 <div class="row">
 
     <div class="col-md-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h4 class="panel-title">Workshop Stats</h4>
-        </div>
-        <div class="panel-body">
-          <p><strong>Number of Workshops:</strong> {{ ws.total }}</p>
-          <p><strong>2013:</strong> {{ ws.ws2013_total }}</p>
-          <p><strong>2014:</strong> {{ ws.ws2014_total }}</p>
-          <p><strong>2015:</strong> {{ ws.ws2015_total }}</p>
-        </div>
-      </div>
       <div class="panel panel-success">
         <div class="panel-heading">
           <h4 class="panel-title">People</h4>
@@ -41,11 +30,10 @@
             </tr>
            </thead>
            <tbody>
-            {{ attendees_per_org }}
-            {% for org in attendees_per_org %}
+            {% for org, num in attendees_per_org.items %}
             <tr>
-                <td>{{ org }}</td>
-                <td>{{ attendees_per_org.org }}</td>
+                <td><a href="{{ org.org_stats }}">{{ org }}</a></td>
+                <td>{{ num }}</td>
             </tr>
             {% endfor %}
            </tbody>
@@ -54,6 +42,17 @@
       </div>
     </div>
     <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h4 class="panel-title">Workshop Stats</h4>
+        </div>
+        <div class="panel-body">
+          <p><strong>Number of Workshops:</strong> {{ ws.total }}</p>
+          <p><strong>2013:</strong> {{ ws.ws2013_total }}</p>
+          <p><strong>2014:</strong> {{ ws.ws2014_total }}</p>
+          <p><strong>2015:</strong> {{ ws.ws2015_total }}</p>
+        </div>
+      </div>
       <div class="panel panel-warning">
         <div class="panel-heading">
           <h4 class="panel-title">Workshop Career status breakdown</h4>

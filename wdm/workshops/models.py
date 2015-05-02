@@ -170,6 +170,10 @@ class Institution(models.Model):
     def total_attendees(self):
         return Participant.objects.filter(institution=self).count()
     
+    def org_stats(self):
+        org_slug = slugify(self.organisation)
+        return "/reports/%s/" % org_slug 
+
     def save(self):
         if not self.slug:
              self.slug = slugify(self)
