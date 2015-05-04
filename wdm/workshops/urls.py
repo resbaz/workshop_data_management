@@ -17,5 +17,6 @@ urlpatterns = patterns('',
     url(r'^institutions/add/$', InstitutionCreate.as_view(), name='institution_add'),
     url(r'^institutions/(?P<slug>[-\w]+)/$', InstitutionDetail.as_view(), name='institution_detail'),
     url(r'^reports/dashboard/$', dashboard, name='dashboard'),
+    url(r'^reports/(?P<slug>[-\w]+)/$', institute_report, name='institution_reports'),
 )
 

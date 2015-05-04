@@ -30,10 +30,12 @@
             </tr>
            </thead>
            <tbody>
-            {% for org, num in attendees_per_org.items %}
+            {% for org, info in attendees_per_org.items %}
             <tr>
-                <td><a href="{{ org.org_stats }}">{{ org }}</a></td>
-                <td>{{ num }}</td>
+                {% for link, num in info.items %}
+                    <td><a href="{{ link }}">{{ org }}</a></td>
+                    <td>{{ num }}</td>
+                {% endfor %}
             </tr>
             {% endfor %}
            </tbody>

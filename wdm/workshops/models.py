@@ -142,7 +142,8 @@ class InstitutionManager(models.Manager):
         total = {}
         for org in Institution.objects.distinct('organisation').values('organisation'):
             if Participant.objects.filter(institution__organisation=org['organisation']).count()>0:
-                total[org['organisation']] = Participant.objects.filter(institution__organisation=org['organisation']).count()
+                org_slug = slugify(org['organisation'])
+                total[org['organisation']] = {org_slug: Participant.objects.filter(institution__organisation=org['organisation']).count()}
         return total
 
 class Institution(models.Model):

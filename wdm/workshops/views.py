@@ -11,6 +11,7 @@ from .models import Workshop, Person, Institution, Participant, CAREER_CHOICES, 
 Dashboard
 '''
 
+
 def dashboard(request):
     ws = {}
     ws_qs = Workshop.objects.all()
