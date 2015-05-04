@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns
 from django.contrib.auth.decorators import login_required
 
-from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete, PersonList, PersonCreate, PersonDetail, InstitutionDetail, InstitutionList, InstitutionCreate, dashboard
+from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete, PersonList, PersonCreate, PersonDetail, InstitutionDetail, InstitutionList, InstitutionCreate, dashboard, institute_report
 
 urlpatterns = patterns('',
     url(r'^$', WorkshopList.as_view(), name='index'),

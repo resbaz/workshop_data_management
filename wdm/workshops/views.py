@@ -11,6 +11,12 @@ from .models import Workshop, Person, Institution, Participant, CAREER_CHOICES, 
 Dashboard
 '''
 
+def institute_report(request, slug=""):
+    institutes = Institution.objects.filter(slug__startswith=slug)
+    organisation = institutes[0].organisation 
+    return render(request, 'workshops/reports_institute.html', {'organisation': organisation, 'institutes': institutes}) 
+     
+
 
 def dashboard(request):
     ws = {}

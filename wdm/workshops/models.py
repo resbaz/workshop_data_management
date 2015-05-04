@@ -170,11 +170,24 @@ class Institution(models.Model):
 
     def total_attendees(self):
         return Participant.objects.filter(institution=self).count()
+        
+    def male_attendees(self):
+        return Participant.objects.filter(institution=self, person__gender='m').count()
+        
+    def female_attendees(self):
+        return Participant.objects.filter(institution=self, person__gender='f').count()
     
+    def other_attendees(self):
+        return Participant.objects.filter(institution=self, person__gender='o').count()
+        
+    def unknown_attendees(self):
+        return self.total_attendees() - self.male_attendees() - self.female_attendees() - self.other_attendees()
+    
+    '''
     def org_stats(self):
         org_slug = slugify(self.organisation)
         return "/reports/%s/" % org_slug 
-
+    '''
     def save(self):
         if not self.slug:
              self.slug = slugify(self)
