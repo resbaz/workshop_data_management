@@ -2,7 +2,7 @@
 
 {% block main_content %}
 <div class="row">
-
+    <div class="alert alert-info" role="alert">NOTE: This is an incomplete data set. We are still "in development".</div>
     <div class="col-md-6">
       <div class="panel panel-success">
         <div class="panel-heading">
@@ -33,7 +33,7 @@
             {% for org, info in attendees_per_org.items %}
             <tr>
                 {% for link, num in info.items %}
-                    <td><a href="{{ link }}">{{ org }}</a></td>
+                    <td><a href="/reports/{{ link }}">{{ org }}</a></td>
                     <td>{{ num }}</td>
                 {% endfor %}
             </tr>
