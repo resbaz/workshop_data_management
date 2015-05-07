@@ -1,11 +1,16 @@
+#!/usr/bin/env python
+
 """
 Import participant data for a single workshop.
 
 """
 
-import os, sys
+import os, sys, pdb
 import csv
 import argparse
+
+cwd = os.getcwd()
+sys.path.append(cwd)
 
 from workshops.models import Institution, Participant, Person, Workshop
 
@@ -15,6 +20,7 @@ def update_notes(person, entry):
 
     old_notes = person.notes
     person.notes = old_notes + ' ' + entry 
+    person.save()
 
 
 def main(infile_name, workshop_index):
@@ -37,19 +43,25 @@ def main(infile_name, workshop_index):
         person_list[person.name] = {'id': person.id, 'Name': person.name, 'email': person.email}
 
     # Create a temporary institute entry that will be updated manually later
-    temp_institute = Institute.objects.get(id=98)
+    temp_institute = Institution.objects.get(id=98)
 
     # Read the csv file
     with open(infile_name, 'rb') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             # read the data
-            first_name, surname, email, mobile = row
+            first_name = row[0]
+            surname = row[1]
+            email = row[2]
+            mobile = row[3] if len(row) > 3 else ''
+           
             full_name = first_name + " " + surname
+            print full_name
 
-            # update person details if necessary
-            if name in person_list.keys():
+            if full_name in person_list.keys():
                 temp_person = Person.objects.get(id=person_list[full_name]['id'])
+                
+                # update person details if necessary
                 existing_email = temp_person.email
                 existing_mobile = temp_person.mobile
                 if existing_email != email:
@@ -60,18 +72,23 @@ def main(infile_name, workshop_index):
                         update_notes(temp_person, existing_mobile)
                         logfile.write('Check mobile of: ' + full_name)
                     temp_person.mobile = mobile 
-            else:
-                logfile.write('No person entry for this participant: ' + full_name)        
+                    temp_person.save()
 
-            # create new participant
-            new_participant = Participant()
-            new_participant.workshop = ws
-            new_participant.institution = temp_institute # temp value that needs to be updated manually
-            new_participant.role = 't' # temp value
-            new_participant.career_stage = '13' # temp value
-            new_participant.offer = True
-            new_participant.acceptance = True
-                
+                # create new participant
+                new_participant = Participant()
+                new_participant.person = temp_person
+                new_participant.workshop = ws
+                new_participant.institution = temp_institute # temp value that needs to be updated manually
+                new_participant.role = 't' # temp value
+                new_participant.career_stage = '13' # temp value
+                new_participant.offer = True
+                new_participant.acceptance = True
+
+                new_participant.save()                
+
+            else:
+                logfile.write('No person entry for this participant: ' + full_name)
+
 
 if __name__ == '__main__':
 
