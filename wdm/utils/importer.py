@@ -66,11 +66,11 @@ def main(infile_name, workshop_index):
                 existing_mobile = temp_person.mobile
                 if existing_email != email:
                     update_notes(temp_person, email)
-                    logfile.write('Check email of: ' + full_name)
+                    logfile.write('Check email of: ' + full_name + '\n')
                 if mobile:
                     if existing_mobile:
                         update_notes(temp_person, existing_mobile)
-                        logfile.write('Check mobile of: ' + full_name)
+                        logfile.write('Check mobile of: ' + full_name + '\n')
                     temp_person.mobile = mobile 
                     temp_person.save()
 
@@ -87,7 +87,7 @@ def main(infile_name, workshop_index):
                 new_participant.save()                
 
             else:
-                logfile.write('No person entry for this participant: ' + full_name)
+                logfile.write('No person entry for this participant: ' + full_name + '\n')
 
 
 if __name__ == '__main__':
