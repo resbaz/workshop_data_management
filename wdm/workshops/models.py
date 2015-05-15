@@ -75,10 +75,10 @@ class Person(models.Model):
     def get_absolute_url(self):
         return reverse('person_detail', args=[self.slug])
         
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-        super(Person, self).save()
+        super(Person, self).save(*args, **kwargs)
 
     def first_letter(self):
         first, last = self.name.split(' ',1)
