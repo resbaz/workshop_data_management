@@ -34,7 +34,8 @@ def main(infile_name, workshop_index):
         sys.exit(1)
 
     # Create a log file to keep track of unidentified participants
-    logfile = open('import.log', 'w')
+    logfile_name = infile_name.split('.')[0]+'.log'
+    logfile = open(logfile_name, 'w')
 
     # Create a dict of all the persons in the database    
     person_list = {}
@@ -43,6 +44,7 @@ def main(infile_name, workshop_index):
         person_list[person.name] = {'id': person.id, 'Name': person.name, 'email': person.email}
 
     # Create a temporary institute entry that will be updated manually later
+    # 98 is TEMP_IMPORT, 90 is UMelb, Unknown
     temp_institute = Institution.objects.get(id=98)
 
     # Read the csv file
@@ -94,7 +96,9 @@ if __name__ == '__main__':
 
     extra_info="""
 example:
-  $ python importer participant_data.csv 10
+  $ python manage.py shell
+  >>> import subprocess
+  >>> subprocess.call(['utils/importer.py', 'participant_data.csv', '10']) 
 
 input file format:
   Four columns are expected: first name, surname, email, mobile  
