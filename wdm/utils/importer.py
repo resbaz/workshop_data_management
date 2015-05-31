@@ -37,12 +37,6 @@ def main(infile_name, workshop_index):
     logfile_name = infile_name.split('.')[0]+'.log'
     logfile = open(logfile_name, 'w')
 
-    # Create a dict of all the persons in the database    
-    person_list = {}
-    people = Person.objects.all()
-    for person in people:
-        person_list[person.name] = {'id': person.id, 'Name': person.name, 'email': person.email}
-
     # Create a temporary institute entry that will be updated manually later
     # 98 is TEMP_IMPORT, 90 is UMelb, Unknown
     temp_institute = Institution.objects.get(id=98)
@@ -60,36 +54,38 @@ def main(infile_name, workshop_index):
             full_name = first_name + " " + surname
             print full_name
 
-            if full_name in person_list.keys():
-                temp_person = Person.objects.get(id=person_list[full_name]['id'])
-                
-                # update person details if necessary
-                existing_email = temp_person.email
-                existing_mobile = temp_person.mobile
-                if existing_email != email:
-                    update_notes(temp_person, email)
-                    logfile.write('Check email of: ' + full_name + '\n')
-                if mobile:
-                    if existing_mobile:
-                        update_notes(temp_person, existing_mobile)
-                        logfile.write('Check mobile of: ' + full_name + '\n')
-                    temp_person.mobile = mobile 
-                    temp_person.save()
+            p, created = Person.objects.get_or_create(name=full_name)
+            existing_mobile = p.mobile
 
-                # create new participant
-                new_participant = Participant()
-                new_participant.person = temp_person
-                new_participant.workshop = ws
-                new_participant.institution = temp_institute # temp value that needs to be updated manually
-                new_participant.role = 't' # temp value
-                new_participant.career_stage = '13' # temp value
-                new_participant.offer = True
-                new_participant.acceptance = True
+            # update person details if necessary
+            if not p.email:
+                p.email = email
+            elif p.email != email:
+                update_notes(p, email)
+                logfile.write('Check email of: ' + full_name + '\n')
 
-                new_participant.save()                
+            if not p.gender:
+                p.gender = 't'
+            
+            if mobile:
+                if existing_mobile:
+                    update_notes(p, existing_mobile)
+                    logfile.write('Check mobile of: ' + full_name + '\n')
+                p.mobile = mobile 
+            
+            p.save()
 
-            else:
-                logfile.write('No person entry for this participant: ' + full_name + '\n')
+            # create new participant
+            new_participant = Participant()
+            new_participant.person = p
+            new_participant.workshop = ws
+            new_participant.institution = temp_institute # temp value that needs to be updated manually
+            new_participant.role = 't' # temp value
+            new_participant.career_stage = '13' # temp value
+            new_participant.offer = True
+            new_participant.acceptance = True
+
+            new_participant.save()                
 
 
 if __name__ == '__main__':

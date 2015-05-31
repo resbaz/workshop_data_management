@@ -12,6 +12,7 @@ GENDER_CHOICES = (
     ('m', 'Male'),
     ('f', 'Female'),
     ('o', 'Other'),
+    ('t', 'TEMP'),
     )
 
 ROLE_CHOICES = (
