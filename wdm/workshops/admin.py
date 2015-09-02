@@ -45,7 +45,7 @@ class InstitutionAdmin(ImportExportActionModelAdmin):
 class ParticipantAdmin(ImportExportActionModelAdmin):
     list_display = ['id', 'workshop', 'person', 'role']
     list_filter = ['role', 'attendance_start', 'attendance_end', 'workshop', 'institution']
-    raw_id_fields = ('person', 'workshop')
+    raw_id_fields = ('person', 'workshop',) 
     fieldsets = (
         (None, {'fields': ('workshop',)}),
         ('Participant', {'fields':('person', 'institution', 'role', 'career_stage',)}),

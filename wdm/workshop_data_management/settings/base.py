@@ -97,5 +97,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # DBBACKUP SETTINGS
 DBBACKUP_BACKUP_DIRECTORY="/home/ubuntu/backups/dev/"
 
-
 LOGIN_REDIRECT_URL="/"

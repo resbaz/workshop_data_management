@@ -42,6 +42,7 @@ CAREER_CHOICES = (
     ('10', 'Mid career researcher'),
     ('11', 'Senior researcher'),
     ('12', 'Research assistant'),
+    ('13', 'Professional'),
     )
 
 DIETARY_CHOICES = (
