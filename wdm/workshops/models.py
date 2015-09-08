@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.text import slugify
 
+from autoslug import AutoSlugField
 
 GENDER_CHOICES = (
     ('m', 'Male'),
@@ -74,7 +75,8 @@ class Person(models.Model):
     teaching_team = models.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True)     
     email_list = models.BooleanField(u'Happy to be on email list', default=True)         
 
-    slug = models.SlugField(max_length=128, null=True, blank=True)
+    #slug = models.SlugField(max_length=128, null=True, blank=True)
+    slug = AutoSlugField(populate_from='name', unique=True, always_update=True)
 
     def __unicode__(self):
         return '%s' % (self.name)
@@ -82,11 +84,12 @@ class Person(models.Model):
     def get_absolute_url(self):
         return reverse('person_detail', args=[self.slug])
         
+    '''
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
         super(Person, self).save(*args, **kwargs)
-
+    '''
     def first_letter(self):
         first, last = self.name.split(' ',1)
         return last[0].upper() or ''
