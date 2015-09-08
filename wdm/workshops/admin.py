@@ -28,19 +28,24 @@ class ParticipantResource(resources.ModelResource):
 
 # Admin site specifications
 
-class PersonAdmin(ImportExportActionModelAdmin):
-    list_display = ['id', 'name', 'notes']
-    list_filter = ['teaching_team']
-    resource_class = PersonResource
-
 class WorkshopAdmin(ImportExportActionModelAdmin):
-    list_display = ['id', '__unicode__', 'start_date', 'description', 'total_attendance']
+    list_display = ['id', 'title', 'start_date', 'description', 'total_attendance']
     resource_class = WorkshopResource
 
 class InstitutionAdmin(ImportExportActionModelAdmin):
-    list_display = ['id', 'organisation', 'department', 'campus']
+    list_display = ['id', 'organisation', 'department', 'campus', 'total_attendees']
     list_filter = ['organisation',]
     resource_class = InstitutionResource
+
+class ParticipantInline(admin.TabularInline):
+    model = Participant
+
+class PersonAdmin(ImportExportActionModelAdmin):
+    inlines = [ParticipantInline, ]
+    list_display = ['id', 'name', 'notes']
+    list_filter = ['teaching_team']
+    resource_class = PersonResource
+    search_fields = ['name', 'email']
 
 class ParticipantAdmin(ImportExportActionModelAdmin):
     list_display = ['id', 'workshop', 'person', 'role']

@@ -43,9 +43,10 @@ def dashboard(request):
     pt_qs = Participant.objects.all()
     ppnt = {}
     total = {}
-    total['all'] = int(ws_qs.aggregate(total_att=Sum('participant')).values()[0])
+    total['all'] = 0 
     for w in ws_qs:
         if w.total_attendance() > 0:
+            total['all'] += w.total_attendance()
             ppnt[w] = {}
             ppnt[w]['ws'] = w
             ppnt[w]['stats'] = w.career_stats()

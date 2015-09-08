@@ -55,6 +55,11 @@ DIETARY_CHOICES = (
     )
 
 
+class PersonManager(models.Manager):
+    """ Table level functions for people"""
+    def return_unique_students(self):
+        students = Person.partici
+
 class Person(models.Model):
     """The underlying model for a person."""
 
@@ -139,6 +144,22 @@ class Workshop(models.Model):
         ordering = ['start_date',]
 
 
+class ArtsManager(models.Manager):
+    def with_counts(self):
+        total = 0
+        #totals
+        
+        uom = Institution.objects.filter(organisation="University of Melbourne")
+        for org in uom:
+            if org.department in arts_orgs:
+                total += org.total_attendees()
+        return total
+                  
+    def get_queryset(self):
+        artsOrgs = ["Faculty of Arts", "School of Social and Political Sciences", "School of Languages and Linguistics", "School of Historical and Philosophical Studies", "School of Culture and Communication", "Graduate School of Humanities and Social Sciences", "Asia Institute", ]
+        return super(ArtsManager, self).get_queryset().filter(organisation="University of Melbourne", department__in=artsOrgs)
+
+
 class InstitutionManager(models.Manager):
     def attendees_per_org(self):
         total = {}
@@ -158,6 +179,7 @@ class Institution(models.Model):
 
     objects = models.Manager() 
     counter = InstitutionManager()
+    artsmanager = ArtsManager()
 
     def __unicode__(self):
         temp_name = self.organisation
@@ -202,9 +224,9 @@ class Institution(models.Model):
 class Participant(models.Model):
     """Intermediate class for workshop participants."""
 
-    person = models.ForeignKey(Person)
-    workshop = models.ForeignKey(Workshop)
-    institution = models.ForeignKey(Institution)
+    person = models.ForeignKey(Person, related_name='participations')
+    workshop = models.ForeignKey(Workshop, related_name='participants')
+    institution = models.ForeignKey(Institution, related_name='participants')
 
     role = models.CharField(max_length=2, choices=ROLE_CHOICES)
     career_stage = models.CharField(u'career stage', max_length=4, choices=CAREER_CHOICES, blank=True)
