@@ -116,11 +116,11 @@ class Workshop(models.Model):
         return reverse('workshop_detail', args=[self.slug])
 
     def total_attendance(self):
-        return self.participant_set.all().count()
+        return self.participants.all().count()
    
     def institute_stats(self):
         inst_stats = {}
-        for participant in self.participant_set.all():
+        for participant in self.participants.all():
             if participant.institution not in inst_stats: 
                 inst_stats[participant.institution] = 1
             else:
@@ -130,7 +130,7 @@ class Workshop(models.Model):
     def career_stats(self):
         career_stats = {}
         for stage_id, stage in CAREER_CHOICES:
-            career_stats[stage_id]=self.participant_set.filter(career_stage=stage_id).count()
+            career_stats[stage_id]=self.participants.filter(career_stage=stage_id).count()
         return career_stats
 
     def save(self):
