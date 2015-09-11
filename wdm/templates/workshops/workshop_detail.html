@@ -12,15 +12,20 @@
 	<p><strong>Website:</strong> {{ objet.website }}</p>
 {% endif %}
 {% if object.blog_post %}
-	<p><strong>Blog Post:</strong> {{ object.blog_post }}</p>
+	<p><strong>Blog Post:</strong> <a href="{{object.blog_post}}">{{ object.blog_post }}</a></p>
 {% endif %}
 
 <h4>Participants</h4>
 
 <ul>
-{% for participant in object.participant_set.all %}
+{% for participant in object.participants.all %}
 
-	<li><a href="{{ participant.person.get_absolute_url}}">{{ participant.person }}</a></li>	
+	<li><a href="{{ participant.person.get_absolute_url}}">{{ participant.person }}</a> 
+
+{% if participant.role == 'i' %}(Instructor)
+{% elif participant.role == 'h' %}(Helper) {% endif %} 
+
+</li>	
 
 {% endfor %}
 

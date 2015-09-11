@@ -9,15 +9,14 @@
           <h4 class="panel-title">People</h4>
         </div>
         <div class="panel-body">
-          
           <ul class="list-group">
-          <li class="list-group-item list-group-item-success"><strong>Total students:</strong> {{ students.total }}</p>
+          <li class="list-group-item list-group-item-heading"><strong>Total students:</strong> {{ students.total }}</li>
           <li class="list-group-item"><strong>Men:</strong> {{ students.m }} ({% widthratio students.m students.total 100 %}%)</li>
           <li class="list-group-item"><strong>Women:</strong> {{ students.f }} ({% widthratio students.f students.total 100 %}%)</li>
           <li class="list-group-item"><strong>Other:</strong> {{ students.o }} ({% widthratio students.o students.total 100 %}%)</li>
           <li class="list-group-item"><strong>Unknown:</strong> {{ students.u }} ({% widthratio students.u students.total 100 %}%)</li>
           </ul><ul class="list-group">
-          <li class="list-group-item list-group-item-success"><strong>Total trainers:</strong> {{ trainers.total }}</p>
+          <li class="list-group-item list-group-item-success"><strong>Total trainers:</strong> {{ trainers.total }}</li>
           <li class="list-group-item"><strong>Instructors:</strong> {{ trainers.i }}</li>
           <li class="list-group-item"><strong>Helpers:</strong> {{ trainers.h }}</li>
           </ul>
