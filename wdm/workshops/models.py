@@ -127,7 +127,8 @@ class Person(models.Model):
     
     class Meta:
         ordering = ['name', ]
-        
+        unique_together = ('name', 'email')
+        verbose_name_plural = "People"    
 
 class Workshop(models.Model):
     """Underlying model for workshops."""
