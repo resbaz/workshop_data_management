@@ -59,7 +59,13 @@ DIETARY_CHOICES = (
 class PersonManager(models.Manager):
     """ Table level functions for people"""
     def return_unique_students(self):
-        students = Person.partici
+        ppl = Person.objects.all()
+        student_count = 0
+        for p in ppl:
+            student = p.participations.filter(role='s')
+            if len(student)>0:
+                student_count += 1
+        return student_count
 
 class Person(models.Model):
     """The underlying model for a person."""
@@ -75,8 +81,10 @@ class Person(models.Model):
     teaching_team = models.CharField(max_length=10, choices=TEACHING_TEAM_CHOICES, blank=True)     
     email_list = models.BooleanField(u'Happy to be on email list', default=True)         
 
-    #slug = models.SlugField(max_length=128, null=True, blank=True)
     slug = AutoSlugField(populate_from='name', unique=True, always_update=True)
+    
+    objects = models.Manager()
+    people = PersonManager()
 
     def __unicode__(self):
         return '%s' % (self.name)
@@ -84,15 +92,23 @@ class Person(models.Model):
     def get_absolute_url(self):
         return reverse('person_detail', args=[self.slug])
         
-    '''
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        super(Person, self).save(*args, **kwargs)
-    '''
     def first_letter(self):
         first, last = self.name.split(' ',1)
         return last[0].upper() or ''
+    
+    def workshops_attended(self):
+        ws = []
+        for participations in self.participations.all():
+            ws.append(participations.workshop)
+        return ws
+
+    def participations(self):
+        return self.participations.all()
+    
+    def institutions(self):
+        institutions = []
+        for ws in self.workshops_attended():
+            institutions.append(ws.institution
     
     class Meta:
         ordering = ['name', ]
@@ -119,8 +135,11 @@ class Workshop(models.Model):
         return reverse('workshop_detail', args=[self.slug])
 
     def total_attendance(self):
-        return self.participants.all().count()
+        return self.participants.filter(role='s').count()
    
+    def students(self):
+        return self.participants.all()    
+
     def institute_stats(self):
         inst_stats = {}
         for participant in self.participants.all():

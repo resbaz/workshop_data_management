@@ -16,8 +16,6 @@ def institute_report(request, slug=""):
     organisation = institutes[0].organisation 
     return render(request, 'workshops/reports_institute.html', {'organisation': organisation, 'institutes': institutes}) 
      
-
-
 def dashboard(request):
     ws = {}
     ws_qs = Workshop.objects.all()
@@ -70,6 +68,7 @@ def dashboard(request):
     ppl['men'] = people.filter(gender='m').count()
     ppl['women'] = people.filter(gender='f').count()
     ppl['other_gender'] = people.filter(gender='o').count()
+    ppl['temp'] = people.filter(gender='t').count()
     ppl['unknown_gender'] = people.filter(gender='').count()
     
     return render(request, 'workshops/index.html', {'ws': ws, 'ppnt': ppnt, 'ppl':ppl, 'inst': inst, 'attendees_per_org': attendees_per_org, 'total':total}) 
