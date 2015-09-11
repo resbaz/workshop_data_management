@@ -8,11 +8,13 @@ from django.db import models
 from django.utils.text import slugify
 
 from autoslug import AutoSlugField
+from collections import defaultdict
 
 GENDER_CHOICES = (
     ('m', 'Male'),
     ('f', 'Female'),
     ('o', 'Other'),
+    ('u', 'Unknown'),
     ('t', 'TEMP'),
     )
 
@@ -60,12 +62,25 @@ class PersonManager(models.Manager):
     """ Table level functions for people"""
     def return_unique_students(self):
         ppl = Person.objects.all()
-        student_count = 0
+        student_count = defaultdict(int)
         for p in ppl:
             student = p.participations.filter(role='s')
             if len(student)>0:
-                student_count += 1
+                student_count['total'] += 1
+                student_count[p.gender] += 1
         return student_count
+    
+    def return_trainers(self):
+        ppl = Person.objects.all()
+        trainer_count = defaultdict(int)
+        for p in ppl:
+            trainings = p.participations.exclude(role='s')
+            if len(trainings)>0:
+                trainer_count['total'] += 1
+                for trainer in trainings:
+                    trainer_count[trainer.role] += 1
+        return trainer_count
+        
 
 class Person(models.Model):
     """The underlying model for a person."""
@@ -108,7 +123,7 @@ class Person(models.Model):
     def institutions(self):
         institutions = []
         for ws in self.workshops_attended():
-            institutions.append(ws.institution
+            institutions.append(ws.institution)
     
     class Meta:
         ordering = ['name', ]

@@ -6,16 +6,23 @@
     <div class="col-md-6">
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h4 class="panel-title">Students</h4>
+          <h4 class="panel-title">People</h4>
         </div>
         <div class="panel-body">
-          <p><strong>Number of people:</strong> {{ ppl.total }}</p>
-          <p><strong>Gender</strong></p>
-          <p><strong>Men:</strong> {{ ppl.men }} ({% widthratio ppl.men ppl.total 100 %}%)</p>
-          <p><strong>Women:</strong> {{ ppl.women }} ({% widthratio ppl.women ppl.total 100 %}%)</p>
-          <p><strong>Other:</strong> {{ ppl.other_gender }} ({% widthratio ppl.other_gender ppl.total 100 %}%)</p>
-          <p><strong>Unknown:</strong> {{ ppl.unknown_gender }} ({% widthratio ppl.unknown_gender ppl.total 100 %}%)</p>
+          
+          <ul class="list-group">
+          <li class="list-group-item list-group-item-success"><strong>Total students:</strong> {{ students.total }}</p>
+          <li class="list-group-item"><strong>Men:</strong> {{ students.m }} ({% widthratio students.m students.total 100 %}%)</li>
+          <li class="list-group-item"><strong>Women:</strong> {{ students.f }} ({% widthratio students.f students.total 100 %}%)</li>
+          <li class="list-group-item"><strong>Other:</strong> {{ students.o }} ({% widthratio students.o students.total 100 %}%)</li>
+          <li class="list-group-item"><strong>Unknown:</strong> {{ students.u }} ({% widthratio students.u students.total 100 %}%)</li>
+          </ul><ul class="list-group">
+          <li class="list-group-item list-group-item-success"><strong>Total trainers:</strong> {{ trainers.total }}</p>
+          <li class="list-group-item"><strong>Instructors:</strong> {{ trainers.i }}</li>
+          <li class="list-group-item"><strong>Helpers:</strong> {{ trainers.h }}</li>
+          </ul>
         </div>
+
       </div>
       <div class="panel panel-danger">
         <div class="panel-heading">

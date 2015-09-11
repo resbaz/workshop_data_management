@@ -38,7 +38,7 @@ def dashboard(request):
 
     ws['catered'] = ws_qs.filter(catering=True).count()
 
-    pt_qs = Participant.objects.all()
+    pt_qs = Participant.objects.filter(role='s')
     ppnt = {}
     total = {}
     total['all'] = 0 
@@ -61,17 +61,10 @@ def dashboard(request):
            inst.append(i) 
     attendees_per_org = Institution.counter.attendees_per_org()
     
-
-    ppl = {} 
-    people = Person.objects.all()
-    ppl['total'] = people.count()
-    ppl['men'] = people.filter(gender='m').count()
-    ppl['women'] = people.filter(gender='f').count()
-    ppl['other_gender'] = people.filter(gender='o').count()
-    ppl['temp'] = people.filter(gender='t').count()
-    ppl['unknown_gender'] = people.filter(gender='').count()
-    
-    return render(request, 'workshops/index.html', {'ws': ws, 'ppnt': ppnt, 'ppl':ppl, 'inst': inst, 'attendees_per_org': attendees_per_org, 'total':total}) 
+    trainers = Person.people.return_trainers() 
+    students = Person.people.return_unique_students()   
+ 
+    return render(request, 'workshops/index.html', {'ws': ws, 'ppnt': ppnt, 'trainers':trainers, 'inst': inst, 'attendees_per_org': attendees_per_org, 'students':students, 'total':total}) 
 
 '''
 Institution
