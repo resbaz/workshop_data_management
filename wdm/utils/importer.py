@@ -5,14 +5,34 @@ Import participant data for a single workshop.
 """
 
 import os, sys, pdb
+import django
 import csv
 import argparse
+import datetime
+
+sys.path.append('/home/ubuntu/www/prod/wdm/')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "workshop_data_management.settings.local")
+django.setup()
+
+from django.conf import settings
 
 from django.core.exceptions import ObjectDoesNotExist
 from workshops.models import Institution, Participant, Person, Workshop
 
+from django.contrib.admin.models import LogEntry
+from django.contrib.auth.models import Group, Permission, User
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sessions.models import Session
+from django.utils import timezone
+from django.conf import settings
+from django.core.cache import cache
+from django.db.models import Avg, Count, F, Max, Min, Sum, Q, Prefetch
+from django.core.urlresolvers import reverse
+from django.db import transaction
+
 cwd = os.getcwd()
 sys.path.append(cwd)
+
 
 rownum = 0
 CAREER_CHOICES = (
@@ -31,16 +51,17 @@ CAREER_CHOICES = (
     ('13', 'Professional'),
     )
 
-
 def update_notes(person, entry):
     """Update a Person's notes field."""
     old_notes = person.notes
-    logfile.write("Notes updated: %s has had %s added to their notes \n", %(person, entry))
-    person.notes = old_notes + ', ' + entry 
+    logger.info("Notes updated: %s has had %s added to their notes \n" % (person, entry))
+    person.notes = old_notes + ', ' + str(entry)
     person.save()
 
 def main(infile_name, workshop_index):
-
+    import logging
+    logger = logging.getLogger('importer')
+    
     # Make sure the workshop index is correct
     try:
         ws = Workshop.objects.get(id=workshop_index)
@@ -49,8 +70,7 @@ def main(infile_name, workshop_index):
         sys.exit(1)
 
     # Create a log file to keep track of unidentified participants
-    logfile = open('import.log', 'w')
-
+    logger.info("logs for workshop: %s" % ws )
 
     #with open('/home/ubuntu/rp_matlab_20150608.csv','rb') as csvfile:
     with open(infile_name,'rb') as csvfile:
@@ -72,10 +92,13 @@ def main(infile_name, workshop_index):
             # distinct people into a single entity.
             new_person, created = Person.objects.get_or_create(name=name, email=email)
             
-            if created:
+            if not created:
                 old_mobile = new_person.mobile
                 old_dob = new_person.dob
                 old_gender = new_person.gender
+            else:
+                old_mobile=old_dob=old_gender=""
+
 
             mobile = row[13]
             if len(mobile) > 0:
@@ -87,38 +110,42 @@ def main(infile_name, workshop_index):
                     mobile = ''.join(('03',mobile))
                 else:
                     mobile = ''.join(('0',mobile))
-                if created or len(old_mobile) < 1:
+                if created:
                     new_person.mobile = mobile
                 elif mobile != old_mobile:
                     update_notes(new_person, old_mobile)
                     new_person.mobile = mobile
                 else:
-                    logfile.write("dammit, mobile phone corner case problems for %s \n", %name)
+                    logger.debug("dammit, mobile phone corner case problems for %s \n" % name)
 
-            dob = row[14]
+            
+            age = row[14]
+            #dob = row[14]
             '''age = row[14]
             if len(age) > 0:
                 dob = datetime.date(datetime.datetime.now().year-age, 1, 1)      
             '''
-            if len(dob)>0:
+            #if len(dob)>0:
+            if len(age)>0:
+                dob = datetime.date(datetime.datetime.now().year-int(age), 1, 1)      
                 if created:
                     new_person.dob = dob
                 elif old_dob != dob:
                     update_notes(new_person, old_dob)    
                     new_person.dob = dob
                 else:
-                    logfile.write("dammit, dob corner case problems for %s \n", %name)
+                    logger.debug("dammit, dob corner case problems for %s \n" % name)
 
             gender = row[15]
             if len(gender) > 0:
                 g = gender[0].lower()
                 if created or old_gender == g:
                     new_person.gender = g
-                elif:
+                elif old_gender != g:
                     update_notes(new_person, old_gender) 
                     new_person.gender = g
                 else:
-                    logfile.write("dammit, gender corner case problems for %s \n", %name)
+                    logger.debug("dammit, gender corner case problems for %s \n" % name)
             
             new_person.save()
             
@@ -138,11 +165,13 @@ def main(infile_name, workshop_index):
             '''                
             
             temp_institution = Institution.objects.get(organisation="TEMP_IMPORT")
-
+            career = ""
             for x in CAREER_CHOICES:
-                if x[1] == row[25]
-                career = x[0]
-                
+                if x[1] == row[20]:
+                   career = x[0]
+            if career == "":
+                logger.debug("%s: %s" %(name, row[20]))
+ 
             new_participant = Participant(person=new_person, institution=temp_institution, role='s', career_stage=career, workshop=ws)
 
             attend_status = row[12]
@@ -159,7 +188,7 @@ if __name__ == '__main__':
     
     description = 'Import participant data from a csv file for a single workshop.'
     parser = argparse.ArgumentParser(description=description,
-                                     epilog=extra_info, 
+                                     epilog="epilog", 
                                      argument_default=argparse.SUPPRESS,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
 
