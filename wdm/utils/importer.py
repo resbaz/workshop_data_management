@@ -52,6 +52,8 @@ CAREER_CHOICES = (
 
 def update_notes(person, entry):
     """Update a Person's notes field."""
+    import logging
+    logger = logging.getLogger('importer')
     old_notes = person.notes
     logger.info("Notes updated: %s has had %s added to their notes \n" % (person, entry))
     person.notes = old_notes + ', ' + str(entry)
@@ -118,15 +120,15 @@ def main(infile_name, workshop_index):
                     logger.debug("dammit, mobile phone corner case problems for %s \n" % name)
 
             
-            age = row[14]
-            #dob = row[14]
+            #age = row[14]
+            dob = row[14]
             '''age = row[14]
             if len(age) > 0:
                 dob = datetime.date(datetime.datetime.now().year-age, 1, 1)      
             '''
-            #if len(dob)>0:
-            if len(age)>0:
-                dob = datetime.date(datetime.datetime.now().year-int(age), 1, 1)      
+            if len(dob)>0:
+            #if len(age)>0:
+                #dob = datetime.date(datetime.datetime.now().year-int(age), 1, 1)      
                 if created:
                     new_person.dob = dob
                 elif old_dob != dob:
@@ -172,7 +174,7 @@ def main(infile_name, workshop_index):
             temp_institution = Institution.objects.get(organisation="TEMP_IMPORT")
             career = ""
             for x in CAREER_CHOICES:
-                if x[1] == row[20]:
+                if x[1] == row[25]:
                    career = x[0]
             if career == "":
                 logger.debug("Career stage is unusual, please check original: %s: %s" %(name, row[20]))
