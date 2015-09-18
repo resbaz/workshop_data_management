@@ -10,7 +10,7 @@ import csv
 import argparse
 import datetime
 
-sys.path.append('/home/ubuntu/www/prod/wdm/')
+sys.path.append('/home/ubuntu/www/dev/wdm/')
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "workshop_data_management.settings.local")
 django.setup()
 
@@ -32,7 +32,6 @@ from django.db import transaction
 
 cwd = os.getcwd()
 sys.path.append(cwd)
-
 
 rownum = 0
 CAREER_CHOICES = (
@@ -147,7 +146,13 @@ def main(infile_name, workshop_index):
                 else:
                     logger.debug("dammit, gender corner case problems for %s \n" % name)
             
-            new_person.save()
+            
+            try:
+                new_person.save()
+                logger.info("saved Person %s" % new_person)
+            except Exception as e:
+                logger.warning("Exception: %s, %s" %(e.__doc__, e.message))
+                 
             
             # Get the Institute, to make the participant
             # Institutions are hard and should probably be remodelled/refactored
@@ -170,7 +175,7 @@ def main(infile_name, workshop_index):
                 if x[1] == row[20]:
                    career = x[0]
             if career == "":
-                logger.debug("%s: %s" %(name, row[20]))
+                logger.debug("Career stage is unusual, please check original: %s: %s" %(name, row[20]))
  
             new_participant = Participant(person=new_person, institution=temp_institution, role='s', career_stage=career, workshop=ws)
 
@@ -182,7 +187,11 @@ def main(infile_name, workshop_index):
                 new_participant.attendance_start = False 
                 new_participant.attendance_end = False
             
-            new_participant.save()
+            try:
+                new_participant.save()
+                logger.info("saved Participant %s" % new_participant)
+            except Exception as e:
+                logger.warning("Exception: %s, %s" %(e.__doc__, e.message))
 
 if __name__ == '__main__':
     
