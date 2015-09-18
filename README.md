@@ -1,5 +1,30 @@
 ## Workshop Data Management
 
+The Django application that makes up this project is found in wdm.
+
+### Repository structure
+
+The `production` branch the one that is "live", while we do our development
+on the `master` branch.
+
+### Importing data
+
+There is a script for importing workshop participants in wdm/utils. It 
+takes an Eventbrite csv dump of a workshop and a workshop id number as
+arguments.
+
+### UniMelb institutions
+
+The following are useful notes about the institutions at the 
+University of Melbourne:  
+* In 2015, the departments of Zoology, Botany and Genetics merged to 
+become the School of BioSciences
+* The Walter and Eliza Hall Institute of Medical Research (WEHI) offer 
+undergraduate, Honours and PhD places as the Department of Medical 
+Biology in the Faculty of Medicine, Dentistry and Health Sciences
+
+### Tutorial (status: on hold/deprecated for the moment)
+
 This project is a combination of practical and educational - we are creating a
 small web based database application for the management of the Research 
 Platforms workshops, to provide some broad stroke analysis of those workshops,
@@ -13,27 +38,3 @@ project develops.
 
 The first tutorial is based on the that file and the ideas that Damien and I
 had that lead to the models.
-
-### Repository structure
-
-The `production` branch the one that is "live", while we do our development
-on the `master` branch.
-
-### Importing data
-
-Data in .csv format can be imported via the admin interface
-(we've used the django [import-export](https://django-import-export.readthedocs.org/en/latest/) library).
-Here's a few notes on that process:  
-* True and False values must be represented by a 1 and 0 respectively
-* There must be a header row in the csv file which matches the name of the model fields
-(and the first column must be "id")
-* For fields where you are selecting an existing entry in the database 
-or choosing from pre-set choices, you must specify the id
-
-### UniMelb institutions
-
-The following are useful notes about the institutions at the University of Melbourne:  
-* In 2015, the departments of Zoology, Botany and Genetics merged to become the School of BioSciences
-* The Walter and Eliza Hall Institute of Medical Research (WEHI) offer undergraduate, Honours and PhD places as the Department of Medical Biology in the Faculty of Medicine, Dentistry and Health Sciences
-
-
