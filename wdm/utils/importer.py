@@ -105,7 +105,7 @@ def main(infile_name, workshop_index):
             if len(mobile) > 0:
                 if mobile[0] == '0':
                     pass
-                elif mobile[0] == '+':
+                elif mobile[0] == '+' or mobile[0] == '6':
                     pass
                 elif mobile[0] == '8' or mobile[0] == '9':
                     mobile = ''.join(('03',mobile))
@@ -119,16 +119,9 @@ def main(infile_name, workshop_index):
                 else:
                     logger.debug("dammit, mobile phone corner case problems for %s \n" % name)
 
-            
-            #age = row[14]
-            dob = row[14]
-            '''age = row[14]
-            if len(age) > 0:
-                dob = datetime.date(datetime.datetime.now().year-age, 1, 1)      
-            '''
-            if len(dob)>0:
-            #if len(age)>0:
-                #dob = datetime.date(datetime.datetime.now().year-int(age), 1, 1)      
+            age = row[14]
+            if len(age)>0:
+                dob = datetime.date(datetime.datetime.now().year-int(age), 1, 1)      
                 if created:
                     new_person.dob = dob
                 elif old_dob != dob:
@@ -136,7 +129,18 @@ def main(infile_name, workshop_index):
                     new_person.dob = dob
                 else:
                     logger.debug("dammit, dob corner case problems for %s \n" % name)
-
+            '''
+            dob = row[14]
+            if len(dob)>0:
+                iso8601 = datetime.datetime.strptime(dob,'%d/%m/%y').strftime('%Y-%m-%d')
+                if created:
+                    new_person.dob = iso8601
+                elif old_dob != iso8601:
+                    update_notes(new_person, old_dob)    
+                    new_person.dob = iso8601
+                else:
+                    logger.debug("dammit, dob corner case problems for %s \n" % name)
+            '''
             gender = row[15]
             if len(gender) > 0:
                 g = gender[0].lower()
@@ -174,7 +178,7 @@ def main(infile_name, workshop_index):
             temp_institution = Institution.objects.get(organisation="TEMP_IMPORT")
             career = ""
             for x in CAREER_CHOICES:
-                if x[1] == row[25]:
+                if x[1] == row[20]:
                    career = x[0]
             if career == "":
                 logger.debug("Career stage is unusual, please check original: %s: %s" %(name, row[20]))
