@@ -179,13 +179,12 @@ class Workshop(models.Model):
         super(Workshop, self).save()    
 
     class Meta:
-        ordering = ['start_date',]
+        ordering = ['-start_date',]
 
 
 class ArtsManager(models.Manager):
     def with_counts(self):
         total = 0
-        #totals
         
         uom = Institution.objects.filter(organisation="University of Melbourne")
         for org in uom:
