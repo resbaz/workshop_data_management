@@ -75,10 +75,17 @@ class PersonManager(models.Manager):
         trainer_count = defaultdict(int)
         for p in ppl:
             trainings = p.participations.exclude(role='s')
+            helper=False
+            instructor=False
             if len(trainings)>0:
                 trainer_count['total'] += 1
                 for trainer in trainings:
-                    trainer_count[trainer.role] += 1
+                    if not helper and trainer.role=='h':
+                        trainer_count[trainer.role] += 1
+                        helper=True
+                    if not instructor and trainer.role=='i':
+                        trainer_count[trainer.role] += 1
+                        instructor=True
         return trainer_count
         
 

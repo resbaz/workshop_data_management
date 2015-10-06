@@ -172,7 +172,6 @@ def dashboard_csv(request):
     writer.writerow(['total Trainers', 'Instructors', 'Helpers'])
     writer.writerow([trainers['total'], trainers['i'], trainers['h']])
  
-    #return render(request, 'workshops/index.html', {'ws': ws, 'ppnt': ppnt, 'trainers':trainers, 'inst': inst, 'attendees_per_org': attendees_per_org, 'students':students, 'total':total}) 
     return response
 
 
