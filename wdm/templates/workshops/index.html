@@ -3,6 +3,8 @@
 {% block main_content %}
 <div class="row">
     <div class="alert alert-info" role="alert">NOTE: This is an incomplete data set. We are still "in development".</div>
+    <div class="alert alert-success" role="alert">A CSV of this data can be found <a href="{% url 'dashboard_csv' %}">here</a></div>
+
     <div class="col-md-6">
       <div class="panel panel-success">
         <div class="panel-heading">
@@ -135,6 +137,11 @@
            <td>{{ total.12 }}</td>
            <td> {% widthratio total.12 total.all 100 %}% </td>
            </tr>
+           <tr>
+           <td>Professional</td>
+           <td>{{ total.13 }}</td>
+           <td> {% widthratio total.13 total.all 100 %}% </td>
+           </tr>
             </tbody>
           </table>
         </div>
@@ -165,6 +172,7 @@
                 <td><strong>MCR</strong></td>
                 <td><strong>RA</strong></td>
                 <td><strong>R</strong></td>
+                <td><strong>Professional</strong></td>
             </tr>
            </thead>
            <tbody>
@@ -184,6 +192,7 @@
                 <td>{{ value.stats.10 }}</td>
                 <td>{{ value.stats.11 }}</td>
                 <td>{{ value.stats.12 }}</td>
+                <td>{{ value.stats.13 }}</td>
             </tr>
             {% endfor %}
         </tbody>
