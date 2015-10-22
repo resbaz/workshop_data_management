@@ -41,6 +41,19 @@ def dashboard(request):
 
     ws['catered'] = ws_qs.filter(catering=True).count()
 
+    ws['swc'] = ws_qs.filter(swc=True).count()
+    ws['swc_2015'] = ws_qs.filter(swc=True).filter(start_date__year=2015).count()
+
+    swc_participants = 0
+    for workshop in ws_qs.filter(swc=True).filter(start_date__year=2015):
+        swc_participants += workshop.total_attendance()
+    ws['swc_participants_2015'] = swc_participants
+
+    swc_participants = 0
+    for workshop in ws_qs.filter(swc=True):
+        swc_participants += workshop.total_attendance()
+    ws['swc_participants'] = swc_participants
+
     pt_qs = Participant.objects.filter(role='s')
     ppnt = {}
     total = {}
@@ -103,11 +116,27 @@ def dashboard_csv(request):
     for w in ws_qs.filter(start_date__year=2015):
         ws['t_hours_2015'] += w.teaching_hours    
 
-    ws['catered'] = ws_qs.filter(catering=True).count()
-
     writer.writerow(['WS teaching hours', '2013', '2014', '2015'])
     writer.writerow(['', ws['t_hours_2013'], ws['t_hours_2014'], ws['t_hours_2015']])
     writer.writerow([''])
+
+    ws['swc'] = ws_qs.filter(swc=True).count()
+
+    swc_participants = 0
+    for workshop in ws_qs.filter(swc=True).filter(start_date__year=2015):
+        swc_participants += workshop.total_attendance()
+    ws['swc_participants_2015'] = swc_participants
+    
+    swc_participants = 0
+    for workshop in ws_qs.filter(swc=True):
+        swc_participants += workshop.total_attendance()
+    ws['swc_participants'] = swc_participants
+
+    writer.writerow(['Software Carpentry Workshops', '2013', '2014', '2015', 'total'])
+    writer.writerow(['# held', '1', '6', ws_qs.filter(swc=True).filter(start_date__year=2015).count(), ws['swc']])
+    writer.writerow(['students attended', '44', '212', ws['swc_participants_2015'], ws['swc_participants']])
+    writer.writerow([''])
+    
 
     '''
     Stats about Participants

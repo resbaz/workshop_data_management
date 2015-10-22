@@ -146,7 +146,7 @@ class Workshop(models.Model):
     teaching_hours = models.FloatField()
     catering = models.BooleanField(default=False)
     
-    swc = models.NullBooleanField()    
+    swc = models.NullBooleanField('SWC') 
  
     website = models.URLField(blank=True)
     blog_post = models.URLField(blank=True)

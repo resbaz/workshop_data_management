@@ -29,7 +29,7 @@ class ParticipantResource(resources.ModelResource):
 # Admin site specifications
 
 class WorkshopAdmin(ImportExportActionModelAdmin):
-    list_display = ['id', 'title', 'start_date', 'description', 'total_attendance']
+    list_display = ['id', 'title', 'start_date', 'description', 'swc', 'total_attendance']
     resource_class = WorkshopResource
 
 class InstitutionAdmin(ImportExportActionModelAdmin):
