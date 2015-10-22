@@ -223,7 +223,7 @@ class WorkshopDetail(WorkshopMixin, DetailView):
     pass 
 
 class WorkshopCreate(WorkshopMixin, CreateView):
-    fields = ['title','description','start_date','teaching_hours','catering', 'website', 'blog_post']  
+    fields = ['title','description','start_date','teaching_hours','catering', 'website', 'blog_post', 'swc']  
  
 class WorkshopUpdate(WorkshopMixin, UpdateView):
     pass 

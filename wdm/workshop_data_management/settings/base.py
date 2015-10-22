@@ -22,8 +22,6 @@ SECRET_KEY = '*e7+v4av+wiqhdt&o0gl+i8*m^8v2!)&2w!6d8_$h#90y&=+x1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = ['0.0.0.0','rb.digitalfabulists.org', '.digitalfabulists.org',]
 
 
@@ -56,6 +54,8 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'workshop_data_management.urls'
 
 
+#TEMPLATE_DEBUG = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.i18n',
             ],
+            'debug': True,
         },
     },
 ]
