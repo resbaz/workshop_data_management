@@ -117,7 +117,7 @@ LOGGING = {
         'logfile': {
             'level':'DEBUG',
             'class':'logging.handlers.RotatingFileHandler',
-            'filename': BASE_DIR + "/workshops.log",
+            'filename': BASE_DIR + "/ws.log",
             'maxBytes': 50000,
             'backupCount': 2,
             'formatter': 'standard',

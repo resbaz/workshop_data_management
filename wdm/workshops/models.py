@@ -88,7 +88,35 @@ class PersonManager(models.Manager):
                         instructor=True
         return trainer_count
         
-
+    def return_unique_swc_students(self):
+        ppl = Person.objects.all()
+        student_count = defaultdict(int)
+        for p in ppl:
+            student = p.participations.filter(role='s').filter(workshop__swc=True)
+            if len(student)>0:
+                student_count['total'] += 1
+                student_count[p.gender] += 1
+        return student_count
+    
+    def return_swc_trainers(self):
+        ppl = Person.objects.all()
+        trainer_count = defaultdict(int)
+        for p in ppl:
+            trainings = p.participations.exclude(role='s').filter(workshop__swc=True)
+            helper=False
+            instructor=False
+            if len(trainings)>0:
+                trainer_count['total'] += 1
+                for trainer in trainings:
+                    if not helper and trainer.role=='h':
+                        trainer_count[trainer.role] += 1
+                        helper=True
+                    if not instructor and trainer.role=='i':
+                        trainer_count[trainer.role] += 1
+                        instructor=True
+        return trainer_count
+        
+    
 class Person(models.Model):
     """The underlying model for a person."""
 
@@ -165,6 +193,15 @@ class Workshop(models.Model):
     def students(self):
         return self.participants.all()    
 
+    def get_male_student_count(self):
+        return self.participants.filter(role='s').filter(person__gender='m').count()
+
+    def get_female_student_count(self):
+        return self.participants.filter(role='s').filter(person__gender='f').count()
+
+    def get_unknown_gender_student_count(self):
+        return self.participants.filter(role='s').exclude(person__gender='m').exclude(person__gender='f').count()
+
     def institute_stats(self):
         inst_stats = {}
         for participant in self.participants.all():
@@ -214,6 +251,14 @@ class InstitutionManager(models.Manager):
                 org_slug = slugify(org['organisation'])
                 total[org['organisation']] = {org_slug: Participant.objects.filter(institution__organisation=org['organisation']).count()}
         return total
+    
+    def attendees_swc_per_org(self):
+        total = {}
+        for org in Institution.objects.distinct('organisation').values('organisation'):
+            if Participant.objects.filter(workshop__swc=True).filter(institution__organisation=org['organisation']).count()>0:
+                org_slug = slugify(org['organisation'])
+                total[org['organisation']] = {org_slug: Participant.objects.filter(workshop__swc=True).filter(institution__organisation=org['organisation']).count()}
+        return total
 
 class Institution(models.Model):
     """Underlying model for institutions."""
@@ -238,6 +283,9 @@ class Institution(models.Model):
     def get_absolute_url(self):
         return reverse('institution_detail', args=[self.slug])
 
+    def total_swc_attendees(self):
+        return Participant.objects.filter(institution=self).filter(workshop__swc=True).count()
+        
     def total_attendees(self):
         return Participant.objects.filter(institution=self).count()
         

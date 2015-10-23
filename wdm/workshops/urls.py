@@ -1,7 +1,7 @@
 from django.conf.urls import url, patterns
 from django.contrib.auth.decorators import login_required
 
-from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete, PersonList, PersonCreate, PersonDetail, InstitutionDetail, InstitutionList, InstitutionCreate, dashboard, institute_report, dashboard_csv
+from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete, PersonList, PersonCreate, PersonDetail, InstitutionDetail, InstitutionList, InstitutionCreate, dashboard, institute_report, dashboard_csv, dashboard_swc
 
 urlpatterns = patterns('',
     url(r'^$', WorkshopList.as_view(), name='index'),
@@ -17,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^institutions/add/$', InstitutionCreate.as_view(), name='institution_add'),
     url(r'^institutions/(?P<slug>[-\w]+)/$', InstitutionDetail.as_view(), name='institution_detail'),
     url(r'^reports/dashboard/$', dashboard, name='dashboard'),
+    url(r'^reports/dashboard/swc/$', dashboard_swc, name='dashboard_swc'),
     url(r'^reports/dashboard/csv/$', dashboard_csv, name='dashboard_csv'),
     url(r'^reports/(?P<slug>[-\w]+)/$', institute_report, name='institution_reports'),
 )

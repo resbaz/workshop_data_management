@@ -3,7 +3,7 @@
 {% block main_content %}
 <div class="row">
     <div class="alert alert-info" role="alert">NOTE: This is an incomplete data set. We are still "in development".</div>
-    <div class="alert alert-success" role="alert">A CSV of this data can be found <a href="{% url 'dashboard_csv' %}">here</a></div>
+    <!-- <div class="alert alert-success" role="alert">A CSV of this data can be found <a href="{% url 'dashboard_csv' %}">here</a></div> -->
 
     <div class="col-md-6">
       <div class="panel panel-success">
@@ -12,11 +12,10 @@
         </div>
         <div class="panel-body">
           <ul class="list-group">
-          <li class="list-group-item list-group-item-heading"><strong>Total students:</strong> {{ students.total }}</li>
+          <li class="list-group-item list-group-item-heading"><strong>Total unique students:</strong> {{ students.total }}</li>
           <li class="list-group-item"><strong>Men:</strong> {{ students.m }} ({% widthratio students.m students.total 100 %}%)</li>
           <li class="list-group-item"><strong>Women:</strong> {{ students.f }} ({% widthratio students.f students.total 100 %}%)</li>
-          <li class="list-group-item"><strong>Other:</strong> {{ students.o }} ({% widthratio students.o students.total 100 %}%)</li>
-          <li class="list-group-item"><strong>Unknown:</strong> {{ students.u }} ({% widthratio students.u students.total 100 %}%)</li>
+          <li class="list-group-item"><strong>Other:</strong> {{ students.u }} ({% widthratio students.o students.total 100 %}%)</li>
           </ul><ul class="list-group">
           <li class="list-group-item list-group-item-success"><strong>Total trainers:</strong> {{ trainers.total }}</li>
           <li class="list-group-item"><strong>Instructors:</strong> {{ trainers.i }}</li>
@@ -46,7 +45,7 @@
                 {% endfor %}
             </tr>
             {% endfor %}
-           </tbody>
+            </tbody>
          </table>      
         </div>
       </div>
@@ -61,6 +60,17 @@
           <p><strong>2013:</strong> {{ ws.ws2013_total }}</p>
           <p><strong>2014:</strong> {{ ws.ws2014_total }}</p>
           <p><strong>2015:</strong> {{ ws.ws2015_total }}</p>
+        </div>
+      </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4 class="panel-title">Software Carpentry Workshop Stats</h4>
+        </div>
+        <div class="panel-body">
+          <p><strong>Number of Students:</strong> {{ ws.swc_participants }}</p>
+          <p><strong>2013:</strong> {{ ws.swc_participants_2013 }}</p>
+          <p><strong>2014:</strong> {{ ws.swc_participants_2014 }} </p>
+          <p><strong>2015:</strong> {{ ws.swc_participants_2015 }}</p>
         </div>
       </div>
       <div class="panel panel-warning">
@@ -146,6 +156,35 @@
           </table>
         </div>
       </div>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4 class="panel-title">Workshop Stats</h4>
+        </div>
+        <div class="panel-body">
+          <table class="table table-striped table-hover">
+           <thead>
+            <tr>
+                <td><strong>Title</strong></td>
+                <td><strong>Date</strong></td>
+                <td><strong>Male</strong></td>
+                <td><strong>Female</strong></td>
+                <td><strong>Other</strong></td>
+            </tr>
+           </thead>
+           <tbody>
+            {% for key, value in ppnt.items %}
+            <tr>
+                <td>{{ value.ws.title }}</td>
+                <td>{{ value.ws.start_date | date:'Y-m-d'}}</td>
+                <td>{{ value.m }}</td>
+                <td>{{ value.f }}</td>
+                <td>{{ value.u }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+        </div>
+      </div>
 
     </div>
     <div class="col-md-12">
@@ -179,7 +218,7 @@
             {% for key, value in ppnt.items %}
             <tr>
                 <td>{{ value.ws.title }}</td>
-                <td>{{ value.ws.start_date |date:"SHORT_DATE_FORMAT" }}</td>
+                <td>{{ value.ws.start_date | date:'Y-m-d'}}</td>
                 <td>{{ value.stats.1 }}</td>
                 <td>{{ value.stats.2 }}</td>
                 <td>{{ value.stats.3 }}</td>
@@ -193,6 +232,7 @@
                 <td>{{ value.stats.11 }}</td>
                 <td>{{ value.stats.12 }}</td>
                 <td>{{ value.stats.13 }}</td>
+        
             </tr>
             {% endfor %}
         </tbody>
