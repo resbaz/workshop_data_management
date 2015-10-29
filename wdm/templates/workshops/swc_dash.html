@@ -6,241 +6,247 @@
     <!-- <div class="alert alert-success" role="alert">A CSV of this data can be found <a href="{% url 'dashboard_csv' %}">here</a></div> -->
 
     <div class="col-md-6">
-      <div class="panel panel-success">
-        <div class="panel-heading">
-          <h4 class="panel-title">People</h4>
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">People</h4>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-heading"><strong>Total unique students:</strong> {{ students.total }}</li>
+                    <li class="list-group-item"><strong>Men:</strong> {{ students.m }} ({% widthratio students.m students.total 100 %}%)</li>
+                    <li class="list-group-item"><strong>Women:</strong> {{ students.f }} ({% widthratio students.f students.total 100 %}%)</li>
+                    <li class="list-group-item"><strong>Other:</strong> {{ students.u }} ({% widthratio students.u students.total 100 %}%)</li>
+                </ul><ul class="list-group">
+                    <li class="list-group-item list-group-item-success"><strong>Total trainers:</strong> {{ trainers.total }}</li>
+                    <li class="list-group-item"><strong>Instructors:</strong> {{ trainers.i }}</li>
+                    <li class="list-group-item"><strong>Helpers:</strong> {{ trainers.h }}</li>
+                </ul>
+            </div>
         </div>
-        <div class="panel-body">
-          <ul class="list-group">
-          <li class="list-group-item list-group-item-heading"><strong>Total unique students:</strong> {{ students.total }}</li>
-          <li class="list-group-item"><strong>Men:</strong> {{ students.m }} ({% widthratio students.m students.total 100 %}%)</li>
-          <li class="list-group-item"><strong>Women:</strong> {{ students.f }} ({% widthratio students.f students.total 100 %}%)</li>
-          <li class="list-group-item"><strong>Other:</strong> {{ students.u }} ({% widthratio students.o students.total 100 %}%)</li>
-          </ul><ul class="list-group">
-          <li class="list-group-item list-group-item-success"><strong>Total trainers:</strong> {{ trainers.total }}</li>
-          <li class="list-group-item"><strong>Instructors:</strong> {{ trainers.i }}</li>
-          <li class="list-group-item"><strong>Helpers:</strong> {{ trainers.h }}</li>
-          </ul>
-        </div>
-
-      </div>
-      <div class="panel panel-danger">
-        <div class="panel-heading">
-          <h4 class="panel-title">Institution</h4>
-        </div>
-        <div class="panel-body">
-          <table class="table table-striped table-hover">
-           <thead>
-            <tr>
-                <td>Institution</td>
-                <td>Total Attendees</td>
-            </tr>
-           </thead>
-           <tbody>
-            {% for org, info in attendees_per_org.items %}
-            <tr>
-                {% for link, num in info.items %}
-                    <td><a href="/reports/{{ link }}">{{ org }}</a></td>
-                    <td>{{ num }}</td>
-                {% endfor %}
-            </tr>
-            {% endfor %}
-            </tbody>
-         </table>      
-        </div>
-      </div>
     </div>
     <div class="col-md-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h4 class="panel-title">Workshop Stats</h4>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4 class="panel-title">Workshop Stats</h4>
+            </div>
+            <div class="panel-body">
+                <p><strong>Number of Workshops:</strong> {{ ws.total }}</p>
+                <p><strong>2013:</strong> {{ ws.ws2013_total }}</p>
+                <p><strong>2014:</strong> {{ ws.ws2014_total }}</p>
+                <p><strong>2015:</strong> {{ ws.ws2015_total }}</p>
+            </div>
         </div>
-        <div class="panel-body">
-          <p><strong>Number of Workshops:</strong> {{ ws.total }}</p>
-          <p><strong>2013:</strong> {{ ws.ws2013_total }}</p>
-          <p><strong>2014:</strong> {{ ws.ws2014_total }}</p>
-          <p><strong>2015:</strong> {{ ws.ws2015_total }}</p>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Software Carpentry Workshop Stats</h4>
+            </div>
+            <div class="panel-body">
+                <p><strong>Number of Students:</strong> {{ ws.swc_participants }}</p>
+                <p><strong>2013:</strong> {{ ws.swc_participants_2013 }}</p>
+                <p><strong>2014:</strong> {{ ws.swc_participants_2014 }} </p>
+                <p><strong>2015:</strong> {{ ws.swc_participants_2015 }}</p>
+            </div>
         </div>
-      </div>
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h4 class="panel-title">Software Carpentry Workshop Stats</h4>
-        </div>
-        <div class="panel-body">
-          <p><strong>Number of Students:</strong> {{ ws.swc_participants }}</p>
-          <p><strong>2013:</strong> {{ ws.swc_participants_2013 }}</p>
-          <p><strong>2014:</strong> {{ ws.swc_participants_2014 }} </p>
-          <p><strong>2015:</strong> {{ ws.swc_participants_2015 }}</p>
-        </div>
-      </div>
-      <div class="panel panel-warning">
-        <div class="panel-heading">
-          <h4 class="panel-title">Workshop Career status breakdown</h4>
-        </div>
-        <div class="panel-body">
-          <table class="table table-striped table-hover">
-           <thead>
-            <tr>
-                <td>Stage</td>
-                <td>Number</td>
-                <td>Percent</td>
-            </tr>
-           </thead>
-           <tbody>
-           <tr>
-           <td>Undergraduate</td>
-           <td>{{ total.1 }}</td>
-           <td> {% widthratio total.1 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Honours</td>
-           <td>{{ total.2 }}</td>
-           <td> {% widthratio total.2 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Masters</td>
-           <td>{{ total.3 }}</td>
-           <td> {% widthratio total.3 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>PhD - first year</td>
-           <td>{{ total.4 }}</td>
-           <td> {% widthratio total.4 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>PhD - second year</td>
-           <td>{{ total.5 }}</td>
-           <td> {% widthratio total.5 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>PhD - third year and beyond</td>
-           <td>{{ total.6 }}</td>
-           <td> {% widthratio total.6 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Postgraduate</td>
-           <td>{{ total.7 }}</td>
-           <td> {% widthratio total.7 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Postdoc</td>
-           <td>{{ total.8 }}</td>
-           <td> {% widthratio total.8 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Early Career researcher</td>
-           <td>{{ total.9 }}</td>
-           <td> {% widthratio total.9 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Mid Career Researcher</td>
-           <td>{{ total.10 }}</td>
-           <td> {% widthratio total.10 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Senior Researcher</td>
-           <td>{{ total.11 }}</td>
-           <td> {% widthratio total.11 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Research Assistant</td>
-           <td>{{ total.12 }}</td>
-           <td> {% widthratio total.12 total.all 100 %}% </td>
-           </tr>
-           <tr>
-           <td>Professional</td>
-           <td>{{ total.13 }}</td>
-           <td> {% widthratio total.13 total.all 100 %}% </td>
-           </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h4 class="panel-title">Workshop Stats</h4>
-        </div>
-        <div class="panel-body">
-          <table class="table table-striped table-hover">
-           <thead>
-            <tr>
-                <td><strong>Title</strong></td>
-                <td><strong>Date</strong></td>
-                <td><strong>Male</strong></td>
-                <td><strong>Female</strong></td>
-                <td><strong>Other</strong></td>
-            </tr>
-           </thead>
-           <tbody>
-            {% for key, value in ppnt.items %}
-            <tr>
-                <td>{{ value.ws.title }}</td>
-                <td>{{ value.ws.start_date | date:'Y-m-d'}}</td>
-                <td>{{ value.m }}</td>
-                <td>{{ value.f }}</td>
-                <td>{{ value.u }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-        </div>
-      </div>
-
-    </div>
+    </div> 
+</div>
+<div class="row">
     <div class="col-md-12">
-
-      <div class="panel panel-info">
-        <div class="panel-heading">
-          <h4 class="panel-title">Workshop Stats</h4>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Workshop Stats</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td><strong>Title</strong></td>
+                            <td><strong>Date</strong></td>
+                            <td><strong>Total</strong></td>
+                            <td><strong>Male</strong></td>
+                            <td><strong>Female</strong></td>
+                            <td><strong>Other</strong></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, value in ppnt.items %}
+                    <tr>
+                        <td><a href="{{ value.ws.get_absolute_url }}">{{ value.ws.title }}</a></td>
+                        <td>{{ value.ws.start_date | date:'Y-m-d'}}</td>
+                        <td>{{ value.total_attendence }}</td>
+                        <td>{{ value.m }}</td>
+                        <td>{{ value.f }}</td>
+                        <td>{{ value.u }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="panel-body">
-          <table class="table table-striped table-hover">
-           <thead>
-            <tr>
-                <td><strong>Title</strong></td>
-                <td><strong>Date</strong></td>
-                <td><strong>UG</strong></td>
-                <td><strong>H</strong></td>
-                <td><strong>M</strong></td>
-                <td><strong>PHD1</strong></td>
-                <td><strong>PHD2</strong></td>
-                <td><strong>PHD3</strong></td>
-                <td><strong>PG</strong></td>
-                <td><strong>PD</strong></td>
-                <td><strong>ECR</strong></td>
-                <td><strong>MCR</strong></td>
-                <td><strong>RA</strong></td>
-                <td><strong>R</strong></td>
-                <td><strong>Professional</strong></td>
-            </tr>
-           </thead>
-           <tbody>
-            {% for key, value in ppnt.items %}
-            <tr>
-                <td>{{ value.ws.title }}</td>
-                <td>{{ value.ws.start_date | date:'Y-m-d'}}</td>
-                <td>{{ value.stats.1 }}</td>
-                <td>{{ value.stats.2 }}</td>
-                <td>{{ value.stats.3 }}</td>
-                <td>{{ value.stats.4 }}</td>
-                <td>{{ value.stats.5 }}</td>
-                <td>{{ value.stats.6 }}</td>
-                <td>{{ value.stats.7 }}</td>
-                <td>{{ value.stats.8 }}</td>
-                <td>{{ value.stats.9 }}</td>
-                <td>{{ value.stats.10 }}</td>
-                <td>{{ value.stats.11 }}</td>
-                <td>{{ value.stats.12 }}</td>
-                <td>{{ value.stats.13 }}</td>
-        
-            </tr>
-            {% endfor %}
-        </tbody>
-        </table>
-        </div>
-      </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h4 class="panel-title">Workshop Stats</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td><strong>Title</strong></td>
+                            <td><strong>Date</strong></td>
+                            <td><strong>UG</strong></td>
+                            <td><strong>H</strong></td>
+                            <td><strong>M</strong></td>
+                            <td><strong>PHD1</strong></td>
+                            <td><strong>PHD2</strong></td>
+                            <td><strong>PHD3</strong></td>
+                            <td><strong>PG</strong></td>
+                            <td><strong>PD</strong></td>
+                            <td><strong>ECR</strong></td>
+                            <td><strong>MCR</strong></td>
+                            <td><strong>RA</strong></td>
+                            <td><strong>R</strong></td>
+                            <td><strong>Professional</strong></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for key, value in ppnt.items %}
+                    <tr>
+                        <td>{{ value.ws.title }}</td>
+                        <td>{{ value.ws.start_date | date:'Y-m-d'}}</td>
+                        <td>{{ value.stats.1 }}</td>
+                        <td>{{ value.stats.2 }}</td>
+                        <td>{{ value.stats.3 }}</td>
+                        <td>{{ value.stats.4 }}</td>
+                        <td>{{ value.stats.5 }}</td>
+                        <td>{{ value.stats.6 }}</td>
+                        <td>{{ value.stats.7 }}</td>
+                        <td>{{ value.stats.8 }}</td>
+                        <td>{{ value.stats.9 }}</td>
+                        <td>{{ value.stats.10 }}</td>
+                        <td>{{ value.stats.11 }}</td>
+                        <td>{{ value.stats.12 }}</td>
+                        <td>{{ value.stats.13 }}</td>
 
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+<div class="row">
+    <div class=col-md-6>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h4 class="panel-title">Institution</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td>Institution</td>
+                            <td>Total Attendees</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for org, info in attendees_per_org.items %}
+                    <tr>
+                        {% for link, num in info.items %}
+                        <td><a href="/reports/{{ link }}">{{ org }}</a></td>
+                        <td>{{ num }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>      
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h4 class="panel-title">Workshop Career status breakdown</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <td>Stage</td>
+                            <td>Number</td>
+                            <td>Percent</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Undergraduate</td>
+                        <td>{{ total.1 }}</td>
+                        <td> {% widthratio total.1 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Honours</td>
+                        <td>{{ total.2 }}</td>
+                        <td> {% widthratio total.2 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Masters</td>
+                        <td>{{ total.3 }}</td>
+                        <td> {% widthratio total.3 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>PhD - first year</td>
+                        <td>{{ total.4 }}</td>
+                        <td> {% widthratio total.4 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>PhD - second year</td>
+                        <td>{{ total.5 }}</td>
+                        <td> {% widthratio total.5 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>PhD - third year and beyond</td>
+                        <td>{{ total.6 }}</td>
+                        <td> {% widthratio total.6 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Postgraduate</td>
+                        <td>{{ total.7 }}</td>
+                        <td> {% widthratio total.7 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Postdoc</td>
+                        <td>{{ total.8 }}</td>
+                        <td> {% widthratio total.8 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Early Career researcher</td>
+                        <td>{{ total.9 }}</td>
+                        <td> {% widthratio total.9 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Mid Career Researcher</td>
+                        <td>{{ total.10 }}</td>
+                        <td> {% widthratio total.10 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Senior Researcher</td>
+                        <td>{{ total.11 }}</td>
+                        <td> {% widthratio total.11 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Research Assistant</td>
+                        <td>{{ total.12 }}</td>
+                        <td> {% widthratio total.12 total.all 100 %}% </td>
+                    </tr>
+                    <tr>
+                        <td>Professional</td>
+                        <td>{{ total.13 }}</td>
+                        <td> {% widthratio total.13 total.all 100 %}% </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 {% endblock main_content %}
-

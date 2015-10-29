@@ -65,6 +65,7 @@ def dashboard_swc(request):
             ppnt[w.slug]['m'] = w.get_male_student_count()
             ppnt[w.slug]['f'] = w.get_female_student_count()
             ppnt[w.slug]['u'] = w.get_unknown_gender_student_count()
+            ppnt[w.slug]['total_attendence'] = w.total_attendance()
     sorted_ppnt = OrderedDict(sorted(ppnt.items(), key=lambda t: t[0], reverse=True))    
 
     attendees_per_org = Institution.counter.attendees_swc_per_org()

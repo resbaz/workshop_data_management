@@ -4,11 +4,12 @@
 <head>
     <meta charset="utf-8">
     {% block stylesheets %}
-      <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
+        <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.css" %}">
     {% endblock stylesheets %}
     {% block javascript %}
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <script src="{% static "js/bootstrap.js" %}"></script> 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="{% static "js/bootstrap.js" %}"></script> 
+        <script src="http://squawk.cc/squawk.js"></script> 
     {% endblock javascript %}
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Workshops{% endblock %}</title>
