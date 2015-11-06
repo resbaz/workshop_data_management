@@ -140,7 +140,7 @@ def main(infile_name, workshop_index):
                     new_person.dob = iso8601
                 else:
                     logger.debug("dammit, dob corner case problems for %s \n" % name)
-            '''
+            ''' 
             gender = row[15]
             if len(gender) > 0:
                 g = gender[0].lower()
