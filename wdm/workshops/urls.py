@@ -4,7 +4,9 @@ from django.contrib.auth.decorators import login_required
 from .views import WorkshopList, WorkshopDetail, WorkshopCreate, WorkshopUpdate, WorkshopDelete, PersonList, PersonCreate, PersonDetail, InstitutionDetail, InstitutionList, InstitutionCreate, dashboard, institute_report, dashboard_csv, dashboard_swc
 
 urlpatterns = patterns('',
-    url(r'^$', WorkshopList.as_view(), name='index'),
+    url(r'^$', dashboard, name='dashboard'),
+    # THESE ARE COMMENTED OUT FOR PRIVACY/SECURITY REASONS
+    #url(r'^$', WorkshopList.as_view(), name='index'),
     #    url(r'^workshops/$', WorkshopList.as_view(), name='workshop_index'),
     #url(r'^workshops/add/$', WorkshopCreate.as_view(), name='workshop_add'),
     #url(r'^workshops/(?P<slug>[-\w]+)/$', WorkshopDetail.as_view(), name='workshop_detail'),
