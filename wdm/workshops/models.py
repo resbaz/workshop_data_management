@@ -341,3 +341,4 @@ class Participant(models.Model):
         
     class Meta:
         ordering = ['workshop', 'role', 'person']
+        unique_together = ("person", "workshop")
